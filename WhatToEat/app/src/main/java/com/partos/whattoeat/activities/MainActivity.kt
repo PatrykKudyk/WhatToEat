@@ -1,7 +1,8 @@
-package com.partos.whattoeat
+package com.partos.whattoeat.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.partos.whattoeat.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
