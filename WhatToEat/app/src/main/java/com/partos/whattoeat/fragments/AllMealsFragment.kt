@@ -1,13 +1,11 @@
 package com.partos.whattoeat.fragments
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.partos.whattoeat.R
-import com.partos.whattoeat.logic.logic.MealsFragmentLogic
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,10 +14,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [MealsFragment.newInstance] factory method to
+ * Use the [AllMealsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MealsFragment : Fragment() {
+class AllMealsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -37,9 +35,7 @@ class MealsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_meals, container, false)
-        MealsFragmentLogic().initFragment(view, fragmentManager as FragmentManager)
-        return view
+        return inflater.inflate(R.layout.fragment_all_meals, container, false)
     }
 
     companion object {
@@ -49,12 +45,12 @@ class MealsFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MealsFragment.
+         * @return A new instance of fragment AllMealsFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
-            MealsFragment().apply {
+            AllMealsFragment().apply {
                 arguments = Bundle().apply {
 
                 }
