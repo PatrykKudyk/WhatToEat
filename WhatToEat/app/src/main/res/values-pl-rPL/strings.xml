@@ -11,5 +11,8 @@
     <string name="hint_name_meal">Nazwa potrawy</string>
     <string name="add_ingredient">Dodaj składnik</string>
     <string name="save_meal">Zpisz posiłek</string>
+    <string name="hint_name_ingredient">Nazwa składnika</string>
+    <string name="hint_amount">Ilość</string>
+    <string name="hint_type">Typ (ml, łyżki itp.)</string>
 
 </resources>
