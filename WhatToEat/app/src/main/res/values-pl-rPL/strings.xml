@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">WhatToEat</string>
+    <string name="app_name">Co By Zjadł</string>
     <string name="app_title">Co By Zjadł</string>
     <string name="meals">Posiłki</string>
     <string name="generate_meals_list">Generuj listę posiłków</string>
