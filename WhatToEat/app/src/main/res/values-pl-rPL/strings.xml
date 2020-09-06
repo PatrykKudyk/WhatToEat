@@ -14,5 +14,8 @@
     <string name="hint_name_ingredient">Nazwa składnika</string>
     <string name="hint_amount">Ilość</string>
     <string name="hint_type">Typ (ml, łyżki itp.)</string>
-
+    <string name="toast_no_name">Nie podano nazwy</string>
+    <string name="toast_incomplete_ingredients">Nie wszystkie składniki są uzupełnione</string>
+    <string name="toast_no_ingredients">Nie podano żadnych składników</string>
+    <string name="toast_name_exists">Podana nazwa już istnieje</string>
 </resources>

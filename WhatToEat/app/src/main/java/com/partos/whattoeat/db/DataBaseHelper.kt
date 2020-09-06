@@ -157,6 +157,27 @@ class DataBaseHelper(context: Context) :
         return mealList
     }
 
+    fun getMealList(name: String): ArrayList<Meal> {
+        var mealList = ArrayList<Meal>()
+        val db = readableDatabase
+        val selectQuery = "Select * from ${TableInfo.TABLE_NAME_MEAL} where ${TableInfo.TABLE_COLUMN_NAME} = \"" +
+                name + "\""
+        val result = db.rawQuery(selectQuery, null)
+        if (result.moveToFirst()) {
+            do {
+                var meal = Meal(
+                    result.getLong(result.getColumnIndex(BaseColumns._ID)),
+                    result.getString(result.getColumnIndex(TableInfo.TABLE_COLUMN_NAME)),
+                    result.getLong(result.getColumnIndex(TableInfo.TABLE_COLUMN_TYPE_ID))
+                )
+                mealList.add(meal)
+            } while (result.moveToNext())
+        }
+        result.close()
+        db.close()
+        return mealList
+    }
+
     fun addMeal(name: String, typeId: Long) {
         val db = this.writableDatabase
         val values = ContentValues()

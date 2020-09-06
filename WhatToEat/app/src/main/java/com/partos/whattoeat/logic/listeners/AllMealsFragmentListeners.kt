@@ -3,6 +3,7 @@ package com.partos.whattoeat.logic.listeners
 import android.view.View
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.FragmentManager
+import com.partos.whattoeat.MyApp
 import com.partos.whattoeat.R
 import com.partos.whattoeat.fragments.AddMealFragment
 import com.partos.whattoeat.fragments.MealsFragment
@@ -18,6 +19,8 @@ class AllMealsFragmentListeners {
 
     private fun attachListeners(fragmentManager: FragmentManager) {
         addMealButton.setOnClickListener {
+            MyApp.ingredientsList.clear()
+            MyApp.mealName = ""
             val fragment = AddMealFragment.newInstance()
             fragmentManager
                 .beginTransaction()
