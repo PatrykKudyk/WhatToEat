@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WhatToEat</string>
+    <string name="app_name">What To Eat</string>
     <string name="app_title">What To Eat</string>
     <string name="meals">Meals</string>
     <string name="generate_meals_list">Generate meals list</string>
