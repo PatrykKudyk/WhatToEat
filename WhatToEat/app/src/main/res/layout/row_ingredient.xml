@@ -70,6 +70,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="40"
                         android:hint="@string/hint_amount"
+                        android:inputType="numberDecimal"
                         android:gravity="center"
                         android:textSize="25dip"
                         android:textColor="@color/colorRedDarkDark"
@@ -88,6 +89,7 @@
                         android:layout_weight="45"
                         android:hint="@string/hint_type"
                         android:gravity="center"
+                        android:maxLength="20"
                         android:textSize="25dip"
                         android:textColor="@color/colorRedDarkDark"
                         android:fontFamily="@font/dustismo_bold" />
