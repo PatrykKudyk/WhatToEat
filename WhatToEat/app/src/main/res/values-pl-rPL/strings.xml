@@ -7,4 +7,6 @@
     <string name="meals_show">Jakie posiłki chcesz wyświetlić?</string>
     <string name="meals_category">Kategoriami</string>
     <string name="meals_all">Wszystkie</string>
+    <string name="add_meal">Dodaj posiłek</string>
+
 </resources>

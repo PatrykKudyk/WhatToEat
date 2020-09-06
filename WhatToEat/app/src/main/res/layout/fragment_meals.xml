@@ -35,7 +35,7 @@
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.13"
+            app:layout_constraintHeight_percent="0.17"
             app:layout_constraintTop_toBottomOf="@id/text_view_title" />
 
         <Button

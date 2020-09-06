@@ -4,6 +4,8 @@ import android.view.View
 import android.widget.Button
 import androidx.fragment.app.FragmentManager
 import com.partos.whattoeat.R
+import com.partos.whattoeat.fragments.AllMealsFragment
+import com.partos.whattoeat.fragments.MealCategoriesFragment
 import com.partos.whattoeat.fragments.MealsFragment
 
 class MealsFragmentListeners {
@@ -18,7 +20,7 @@ class MealsFragmentListeners {
 
     private fun attachListeners(fragmentManager: FragmentManager) {
         categoryButton.setOnClickListener {
-            val fragment = MealsFragment.newInstance()
+            val fragment = MealCategoriesFragment.newInstance()
             fragmentManager
                 .beginTransaction()
                 .setCustomAnimations(
@@ -26,12 +28,12 @@ class MealsFragmentListeners {
                     R.anim.enter_left_to_right, R.anim.exit_right_to_left
                 )
                 .replace(R.id.main_frame_layout, fragment)
-                .addToBackStack(MealsFragment.toString())
+                .addToBackStack(MealCategoriesFragment.toString())
                 .commit()
         }
 
         allButton.setOnClickListener {
-            val fragment = MealsFragment.newInstance()
+            val fragment = AllMealsFragment.newInstance()
             fragmentManager
                 .beginTransaction()
                 .setCustomAnimations(
@@ -39,7 +41,7 @@ class MealsFragmentListeners {
                     R.anim.enter_left_to_right, R.anim.exit_right_to_left
                 )
                 .replace(R.id.main_frame_layout, fragment)
-                .addToBackStack(MealsFragment.toString())
+                .addToBackStack(AllMealsFragment.toString())
                 .commit()
         }
     }
