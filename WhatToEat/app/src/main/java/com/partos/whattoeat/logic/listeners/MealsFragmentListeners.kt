@@ -4,13 +4,12 @@ import android.view.View
 import android.widget.Button
 import androidx.fragment.app.FragmentManager
 import com.partos.whattoeat.R
-import com.partos.whattoeat.fragments.GenerateMealsFragment
 import com.partos.whattoeat.fragments.MealsFragment
 
-class MainFragmentListeners {
+class MealsFragmentListeners {
 
-    private lateinit var mealsButton: Button
-    private lateinit var generateButton: Button
+    private lateinit var categoryButton: Button
+    private lateinit var allButton: Button
 
     fun initListeners(rootView: View, fragmentManager: FragmentManager) {
         attachViews(rootView)
@@ -18,7 +17,7 @@ class MainFragmentListeners {
     }
 
     private fun attachListeners(fragmentManager: FragmentManager) {
-        mealsButton.setOnClickListener {
+        categoryButton.setOnClickListener {
             val fragment = MealsFragment.newInstance()
             fragmentManager
                 .beginTransaction()
@@ -31,8 +30,8 @@ class MainFragmentListeners {
                 .commit()
         }
 
-        generateButton.setOnClickListener {
-            val fragment = GenerateMealsFragment.newInstance()
+        allButton.setOnClickListener {
+            val fragment = MealsFragment.newInstance()
             fragmentManager
                 .beginTransaction()
                 .setCustomAnimations(
@@ -40,13 +39,13 @@ class MainFragmentListeners {
                     R.anim.enter_left_to_right, R.anim.exit_right_to_left
                 )
                 .replace(R.id.main_frame_layout, fragment)
-                .addToBackStack(GenerateMealsFragment.toString())
+                .addToBackStack(MealsFragment.toString())
                 .commit()
         }
     }
 
     private fun attachViews(rootView: View) {
-        mealsButton = rootView.findViewById(R.id.main_button_meals)
-        generateButton = rootView.findViewById(R.id.main_button_generate)
+        categoryButton = rootView.findViewById(R.id.meals_button_category)
+        allButton = rootView.findViewById(R.id.meals_button_all)
     }
 }
