@@ -9,8 +9,8 @@ import com.partos.whattoeat.MyApp
 import com.partos.whattoeat.R
 import com.partos.whattoeat.activities.MainActivity
 import com.partos.whattoeat.db.DataBaseHelper
-import com.partos.whattoeat.fragments.AddMealFragment
-import com.partos.whattoeat.fragments.MealTypeChoiceFragment
+import com.partos.whattoeat.fragments.meal.AddMealFragment
+import com.partos.whattoeat.fragments.meal.MealTypeChoiceFragment
 import com.partos.whattoeat.models.Ingredient
 import com.partos.whattoeat.models.MealType
 import kotlinx.android.synthetic.main.row_meal.view.*
