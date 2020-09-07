@@ -10,6 +10,7 @@ import com.partos.whattoeat.R
 import com.partos.whattoeat.adapters.MarginItemDecoration
 import com.partos.whattoeat.adapters.recycler.IngredientsEditRecyclerViewAdapter
 import com.partos.whattoeat.db.DataBaseHelper
+import com.partos.whattoeat.logic.listeners.MealShowFragmentListeners
 import com.partos.whattoeat.models.Ingredient
 import com.partos.whattoeat.models.Meal
 
@@ -26,6 +27,7 @@ class MealShowFragmentLogic {
         attachVariables(rootView.context, mealId)
         attachRecyclerView(rootView.context)
         nameTextView.text = meal.name
+        MealShowFragmentListeners().initListeners(rootView, mealId)
     }
 
     private fun attachVariables(context: Context, mealId: Long) {
