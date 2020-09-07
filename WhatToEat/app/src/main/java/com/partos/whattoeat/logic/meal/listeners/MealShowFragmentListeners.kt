@@ -25,9 +25,9 @@ class MealShowFragmentListeners {
             db.addIngredient(
                 Ingredient(
                     0,
-                    "New ingredient",
+                    context.getString(R.string.new_ingredient),
                     0.0,
-                    "type",
+                    context.getString(R.string.type),
                     mealId
                 )
             )

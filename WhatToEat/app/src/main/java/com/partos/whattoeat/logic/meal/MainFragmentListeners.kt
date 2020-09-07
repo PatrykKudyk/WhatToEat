@@ -1,10 +1,11 @@
-package com.partos.whattoeat.logic.meal.listeners
+package com.partos.whattoeat.logic.meal
 
 import android.view.View
 import android.widget.Button
 import androidx.fragment.app.FragmentManager
 import com.partos.whattoeat.R
 import com.partos.whattoeat.fragments.generation.GenerateMealsFragment
+import com.partos.whattoeat.fragments.generation.GenerateMenuFragment
 import com.partos.whattoeat.fragments.meal.MealsFragment
 
 class MainFragmentListeners {
@@ -32,7 +33,7 @@ class MainFragmentListeners {
         }
 
         generateButton.setOnClickListener {
-            val fragment = GenerateMealsFragment.newInstance()
+            val fragment = GenerateMenuFragment.newInstance()
             fragmentManager
                 .beginTransaction()
                 .setCustomAnimations(

@@ -27,4 +27,8 @@
     <string name="toast_cant_delete_ingredient">Nie możesz usunąć wszystkich składników</string>
     <string name="generate">Wygeneruj nowe</string>
     <string name="saved">Zapisane</string>
+    <string name="new_ingredient">Nowy składnik</string>
+    <string name="type">Typ</string>
+
+
 </resources>

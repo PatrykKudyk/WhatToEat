@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import com.partos.whattoeat.R
-import com.partos.whattoeat.logic.meal.logic.MainFragmentLogic
+import com.partos.whattoeat.logic.meal.MainFragmentLogic
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,7 +38,8 @@ class MainFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_main, container, false)
-        MainFragmentLogic().initFragment(view, fragmentManager as FragmentManager)
+        MainFragmentLogic()
+            .initFragment(view, fragmentManager as FragmentManager)
         return view
     }
 
