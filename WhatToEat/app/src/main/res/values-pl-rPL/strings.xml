@@ -19,4 +19,8 @@
     <string name="toast_no_ingredients">Nie podano żadnych składników</string>
     <string name="toast_name_exists">Podana nazwa już istnieje</string>
     <string name="add_meal_type">Dodaj typ posiłku</string>
+    <string name="hint_name_meal_type">Nazwa typu posiłku</string>
+    <string name="add">Dodaj</string>
+
+
 </resources>
