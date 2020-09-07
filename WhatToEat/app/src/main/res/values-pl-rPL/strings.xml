@@ -25,5 +25,6 @@
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
     <string name="toast_cant_delete_ingredient">Nie możesz usunąć wszystkich składników</string>
-
+    <string name="generate">Wygeneruj nowe</string>
+    <string name="saved">Zapisane</string>
 </resources>
