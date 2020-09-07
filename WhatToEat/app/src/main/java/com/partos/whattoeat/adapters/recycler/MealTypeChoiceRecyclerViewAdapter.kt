@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.partos.whattoeat.MyApp
 import com.partos.whattoeat.R
+import com.partos.whattoeat.activities.MainActivity
 import com.partos.whattoeat.db.DataBaseHelper
 import com.partos.whattoeat.fragments.AddMealFragment
 import com.partos.whattoeat.fragments.MealTypeChoiceFragment
@@ -42,11 +43,11 @@ class MealTypeChoiceRecyclerViewAdapter(var mealTypeList: ArrayList<MealType>) :
                 ))
             }
 
-            val fragment = (holder.view.context) as MealTypeChoiceFragment
-            fragment.fragmentManager
-                ?.popBackStack(AddMealFragment.toString(), FragmentManager.POP_BACK_STACK_INCLUSIVE)
-            fragment.fragmentManager
-                ?.popBackStack(MealTypeChoiceFragment.toString(), FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            val activity = (holder.view.context) as MainActivity
+            activity.supportFragmentManager
+                .popBackStack(AddMealFragment.toString(), FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            activity.supportFragmentManager
+                .popBackStack(MealTypeChoiceFragment.toString(), FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
         }
     }
