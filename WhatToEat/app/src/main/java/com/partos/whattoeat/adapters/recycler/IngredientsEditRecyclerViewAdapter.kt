@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.partos.whattoeat.R
 import com.partos.whattoeat.db.DataBaseHelper
 import com.partos.whattoeat.models.Ingredient
-import kotlinx.android.synthetic.main.row_ingredient.view.*
 import kotlinx.android.synthetic.main.row_ingredient_edit.view.*
 
 class IngredientsEditRecyclerViewAdapter(val ingredientsList: ArrayList<Ingredient>) :
@@ -39,9 +38,27 @@ class IngredientsEditRecyclerViewAdapter(val ingredientsList: ArrayList<Ingredie
         holder.view.row_ingredient_show_edit.setOnClickListener {
             constraintNormal.visibility = View.GONE
             constraintEdit.visibility = View.VISIBLE
-            holder.view.row_ingredient_show_edit_name.text = holder.view.row_ingredient_name.text
-            holder.view.row_ingredient_show_edit_amount.text = holder.view.row_ingredient_amount.text
-            holder.view.row_ingredient_show_edit_type.text = holder.view.row_ingredient_type.text
+            holder.view.row_ingredient_show_edit_name.setText(holder.view.row_ingredient_show_name.text)
+            holder.view.row_ingredient_show_edit_amount.setText(holder.view.row_ingredient_show_amount.text)
+            holder.view.row_ingredient_show_edit_type.setText(holder.view.row_ingredient_show_type.text)
+        }
+
+        holder.view.row_ingredient_show_save.setOnClickListener {
+            constraintNormal.visibility = View.VISIBLE
+            constraintEdit.visibility = View.GONE
+            holder.view.row_ingredient_show_name.text =
+                holder.view.row_ingredient_show_edit_name.text
+            holder.view.row_ingredient_show_amount.text =
+                holder.view.row_ingredient_show_edit_amount.text
+            holder.view.row_ingredient_show_type.text =
+                holder.view.row_ingredient_show_edit_type.text
+            ingredientsList[position].name =
+                holder.view.row_ingredient_show_edit_name.text.toString()
+            ingredientsList[position].amount =
+                holder.view.row_ingredient_show_edit_amount.text.toString().toDouble()
+            ingredientsList[position].type =
+                holder.view.row_ingredient_show_edit_type.text.toString()
+            db.updateIngredient(ingredientsList[position])
         }
 
     }
