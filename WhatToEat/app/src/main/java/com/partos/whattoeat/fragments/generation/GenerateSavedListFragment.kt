@@ -1,11 +1,12 @@
 package com.partos.whattoeat.fragments.generation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.partos.whattoeat.R
+import com.partos.whattoeat.logic.generation.logic.GenerateSavedListFragmentLogic
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +36,9 @@ class GenerateSavedListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_generate_saved_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_generate_saved_list, container, false)
+        GenerateSavedListFragmentLogic().initFragment(view)
+        return view
     }
 
     companion object {

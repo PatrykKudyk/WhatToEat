@@ -26,7 +26,7 @@
             android:fontFamily="@font/dustismo_bold"
             android:text="@string/generate"
             android:textColor="@color/colorBackground"
-            android:textSize="25dip"
+            android:textSize="21dip"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.08"
             app:layout_constraintStart_toStartOf="parent"
