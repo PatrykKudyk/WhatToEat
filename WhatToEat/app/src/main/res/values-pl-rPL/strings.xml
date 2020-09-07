@@ -30,6 +30,7 @@
     <string name="new_ingredient">Nowy składnik</string>
     <string name="type">Typ</string>
     <string name="nothing_saved">Nie ma nic zapisanego</string>
+    <string name="allow_duplicates">Czy włączyć duplikowanie posiłków?</string>
 
 
 </resources>
