@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.partos.whattoeat.R
 import com.partos.whattoeat.adapters.MarginItemDecoration
+import com.partos.whattoeat.adapters.recycler.GenerateMealTypesRecyclerViewAdapter
 import com.partos.whattoeat.logic.generation.listeners.GenerateMealsFragmentListeners
 
 class GenerateMealsFragmentLogic {
@@ -23,7 +24,7 @@ class GenerateMealsFragmentLogic {
         val mLayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = mLayoutManager
         recyclerView.addItemDecoration(MarginItemDecoration(12))
-        recyclerView.adapter
+        recyclerView.adapter = GenerateMealTypesRecyclerViewAdapter(false)
     }
 
     private fun attachViews(rootView: View) {
