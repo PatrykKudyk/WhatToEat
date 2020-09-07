@@ -1,4 +1,4 @@
-package com.partos.whattoeat.fragments
+package com.partos.whattoeat.fragments.generation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

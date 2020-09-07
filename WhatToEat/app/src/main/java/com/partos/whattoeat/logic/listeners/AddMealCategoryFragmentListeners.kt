@@ -10,7 +10,6 @@ import com.partos.whattoeat.MyApp
 import com.partos.whattoeat.R
 import com.partos.whattoeat.adapters.recycler.IngredientsRecyclerViewAdapter
 import com.partos.whattoeat.db.DataBaseHelper
-import com.partos.whattoeat.fragments.MealTypeChoiceFragment
 import com.partos.whattoeat.logic.ToastHelper
 import com.partos.whattoeat.models.Ingredient
 

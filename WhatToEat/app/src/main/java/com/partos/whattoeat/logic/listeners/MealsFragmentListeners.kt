@@ -4,9 +4,8 @@ import android.view.View
 import android.widget.Button
 import androidx.fragment.app.FragmentManager
 import com.partos.whattoeat.R
-import com.partos.whattoeat.fragments.AllMealsFragment
-import com.partos.whattoeat.fragments.MealCategoriesFragment
-import com.partos.whattoeat.fragments.MealsFragment
+import com.partos.whattoeat.fragments.meal.AllMealsFragment
+import com.partos.whattoeat.fragments.meal.MealCategoriesFragment
 
 class MealsFragmentListeners {
 

@@ -6,8 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.partos.whattoeat.R
 import com.partos.whattoeat.activities.MainActivity
-import com.partos.whattoeat.fragments.AddMealFragment
-import com.partos.whattoeat.fragments.AllMealsCategoryFragment
+import com.partos.whattoeat.fragments.meal.AllMealsCategoryFragment
 import com.partos.whattoeat.models.MealType
 import kotlinx.android.synthetic.main.row_meal.view.*
 

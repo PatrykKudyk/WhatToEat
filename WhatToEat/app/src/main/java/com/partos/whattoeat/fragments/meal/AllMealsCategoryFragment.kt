@@ -1,13 +1,13 @@
-package com.partos.whattoeat.fragments
+package com.partos.whattoeat.fragments.meal
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.partos.whattoeat.R
-import com.partos.whattoeat.logic.logic.MealShowFragmentLogic
+import com.partos.whattoeat.logic.logic.AllMealsCategoryFragmentLogic
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,18 +16,18 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [MealShowFragment.newInstance] factory method to
+ * Use the [AllMealsCategoryFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MealShowFragment : Fragment() {
+class AllMealsCategoryFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var mealId: Long? = null
+    private var typeId: Long? = null
     private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            mealId = it.getLong(ARG_PARAM1)
+            typeId = it.getLong(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
     }
@@ -37,8 +37,8 @@ class MealShowFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_show_meal, container, false)
-        MealShowFragmentLogic().initFragment(view, mealId as Long)
+        val view = inflater.inflate(R.layout.fragment_all_meals_category, container, false)
+        AllMealsCategoryFragmentLogic().initFragment(view, fragmentManager as FragmentManager, typeId as Long)
         return view
     }
 
@@ -49,14 +49,14 @@ class MealShowFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment ShowMealFragment.
+         * @return A new instance of fragment AllMealsCategoryFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(mealId: Long) =
-            MealShowFragment().apply {
+        fun newInstance(typeId: Long) =
+            AllMealsCategoryFragment().apply {
                 arguments = Bundle().apply {
-                    putLong(ARG_PARAM1, mealId)
+                    putLong(ARG_PARAM1, typeId)
                 }
             }
     }

@@ -4,7 +4,7 @@ import android.view.View
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.FragmentManager
 import com.partos.whattoeat.R
-import com.partos.whattoeat.fragments.AddMealTypeFragment
+import com.partos.whattoeat.fragments.meal.AddMealTypeFragment
 
 class MealCategoriesFragmentListeners {
 
