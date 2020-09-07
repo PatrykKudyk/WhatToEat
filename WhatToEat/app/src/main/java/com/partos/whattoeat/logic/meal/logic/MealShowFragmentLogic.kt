@@ -1,16 +1,15 @@
-package com.partos.whattoeat.logic.logic
+package com.partos.whattoeat.logic.meal.logic
 
 import android.content.Context
 import android.view.View
 import android.widget.TextView
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.partos.whattoeat.R
 import com.partos.whattoeat.adapters.MarginItemDecoration
 import com.partos.whattoeat.adapters.recycler.IngredientsEditRecyclerViewAdapter
 import com.partos.whattoeat.db.DataBaseHelper
-import com.partos.whattoeat.logic.listeners.MealShowFragmentListeners
+import com.partos.whattoeat.logic.meal.listeners.MealShowFragmentListeners
 import com.partos.whattoeat.models.Ingredient
 import com.partos.whattoeat.models.Meal
 

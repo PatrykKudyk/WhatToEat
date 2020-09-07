@@ -1,4 +1,4 @@
-package com.partos.whattoeat.logic.listeners
+package com.partos.whattoeat.logic.meal.listeners
 
 import android.content.Context
 import android.view.View

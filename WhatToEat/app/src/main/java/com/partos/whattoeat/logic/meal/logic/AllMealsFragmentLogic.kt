@@ -1,4 +1,4 @@
-package com.partos.whattoeat.logic.logic
+package com.partos.whattoeat.logic.meal.logic
 
 import android.content.Context
 import android.view.View
@@ -7,18 +7,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.partos.whattoeat.R
 import com.partos.whattoeat.adapters.MarginItemDecoration
-import com.partos.whattoeat.adapters.recycler.MealTypeRecyclerViewAdapter
+import com.partos.whattoeat.adapters.recycler.MealsRecyclerViewAdapter
 import com.partos.whattoeat.db.DataBaseHelper
-import com.partos.whattoeat.logic.listeners.MealCategoriesFragmentListeners
+import com.partos.whattoeat.logic.meal.listeners.AllMealsFragmentListeners
 
-class MealCategoriesFragmentLogic {
+class AllMealsFragmentLogic {
 
     private lateinit var recyclerView: RecyclerView
 
     fun initFragment(rootView: View, fragmentManager: FragmentManager) {
         attachViews(rootView)
         attachRecyclerView(rootView.context)
-        MealCategoriesFragmentListeners().initListeners(rootView, fragmentManager)
+        AllMealsFragmentListeners().initListeners(rootView, fragmentManager)
     }
 
     private fun attachRecyclerView(context: Context) {
@@ -26,10 +26,10 @@ class MealCategoriesFragmentLogic {
         recyclerView.layoutManager = mLayoutManager
         recyclerView.addItemDecoration(MarginItemDecoration(12))
         val db = DataBaseHelper(context)
-        recyclerView.adapter = MealTypeRecyclerViewAdapter(db.getMealTypeList())
+        recyclerView.adapter = MealsRecyclerViewAdapter(db.getMealList())
     }
 
     private fun attachViews(rootView: View) {
-        recyclerView = rootView.findViewById(R.id.meal_categories_recycler_view)
+        recyclerView = rootView.findViewById(R.id.all_meals_recycler_view)
     }
 }

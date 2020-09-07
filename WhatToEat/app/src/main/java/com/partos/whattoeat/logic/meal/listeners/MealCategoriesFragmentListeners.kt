@@ -1,15 +1,14 @@
-package com.partos.whattoeat.logic.listeners
+package com.partos.whattoeat.logic.meal.listeners
 
 import android.view.View
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.FragmentManager
-import com.partos.whattoeat.MyApp
 import com.partos.whattoeat.R
-import com.partos.whattoeat.fragments.meal.AddMealFragment
+import com.partos.whattoeat.fragments.meal.AddMealTypeFragment
 
-class AllMealsFragmentListeners {
+class MealCategoriesFragmentListeners {
 
-    private lateinit var addMealButton: CardView
+    private lateinit var addButton: CardView
 
     fun initListeners(rootView: View, fragmentManager: FragmentManager) {
         attachViews(rootView)
@@ -17,10 +16,8 @@ class AllMealsFragmentListeners {
     }
 
     private fun attachListeners(fragmentManager: FragmentManager) {
-        addMealButton.setOnClickListener {
-            MyApp.ingredientsList.clear()
-            MyApp.mealName = ""
-            val fragment = AddMealFragment.newInstance()
+        addButton.setOnClickListener {
+            val fragment = AddMealTypeFragment.newInstance()
             fragmentManager
                 .beginTransaction()
                 .setCustomAnimations(
@@ -28,12 +25,12 @@ class AllMealsFragmentListeners {
                     R.anim.enter_left_to_right, R.anim.exit_right_to_left
                 )
                 .replace(R.id.main_frame_layout, fragment)
-                .addToBackStack(AddMealFragment.toString())
+                .addToBackStack(AddMealTypeFragment.toString())
                 .commit()
         }
     }
 
     private fun attachViews(rootView: View) {
-        addMealButton = rootView.findViewById(R.id.all_meals_add)
+        addButton = rootView.findViewById(R.id.meal_categories_add)
     }
 }

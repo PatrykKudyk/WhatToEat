@@ -1,4 +1,4 @@
-package com.partos.whattoeat.logic.logic
+package com.partos.whattoeat.logic.meal.logic
 
 import android.content.Context
 import android.view.View
@@ -8,17 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.partos.whattoeat.R
 import com.partos.whattoeat.adapters.MarginItemDecoration
 import com.partos.whattoeat.adapters.recycler.IngredientsRecyclerViewAdapter
-import com.partos.whattoeat.logic.listeners.AddMealCategoryFragmentListeners
+import com.partos.whattoeat.logic.meal.listeners.AddMealFragmentListeners
 
-class AddMealCategoryFragmentLogic {
+class AddMealFragmentLogic {
 
     private lateinit var recyclerView: RecyclerView
 
-    fun initFragment(rootView: View, fragmentManager: FragmentManager, typeId: Long) {
+    fun initFragment(rootView: View, fragmentManager: FragmentManager) {
 
         attachViews(rootView)
         attachRecycler(rootView.context)
-        AddMealCategoryFragmentListeners().initListeners(rootView, fragmentManager, typeId)
+        AddMealFragmentListeners().initListeners(rootView, fragmentManager)
     }
 
     private fun attachRecycler(context: Context) {
@@ -29,6 +29,6 @@ class AddMealCategoryFragmentLogic {
     }
 
     private fun attachViews(rootView: View) {
-        recyclerView = rootView.findViewById(R.id.add_meal_category_recycler)
+        recyclerView = rootView.findViewById(R.id.add_meal_recycler)
     }
 }

@@ -1,8 +1,8 @@
-package com.partos.whattoeat.logic.logic
+package com.partos.whattoeat.logic.meal.logic
 
 import android.view.View
 import androidx.fragment.app.FragmentManager
-import com.partos.whattoeat.logic.listeners.AddMealTypeFragmentListeners
+import com.partos.whattoeat.logic.meal.listeners.AddMealTypeFragmentListeners
 
 class AddMealTypeFragmentLogic {
 
