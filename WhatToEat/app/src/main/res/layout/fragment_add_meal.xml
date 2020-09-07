@@ -21,6 +21,7 @@
             android:fontFamily="@font/dustismo"
             android:gravity="center"
             android:hint="@string/hint_name_meal"
+            android:textSize="24dip"
             android:maxLength="30"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.1"

@@ -21,6 +21,8 @@
     <string name="add_meal_type">Dodaj typ posiłku</string>
     <string name="hint_name_meal_type">Nazwa typu posiłku</string>
     <string name="add">Dodaj</string>
-
+    <string name="delete_question_ingredient">Czy na pewno chcesz usunąć składnik?</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
 
 </resources>
