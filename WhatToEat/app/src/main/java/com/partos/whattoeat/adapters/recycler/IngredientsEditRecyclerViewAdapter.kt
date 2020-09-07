@@ -4,8 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.partos.whattoeat.MyApp
 import com.partos.whattoeat.R
 import com.partos.whattoeat.db.DataBaseHelper
+import com.partos.whattoeat.logic.ToastHelper
 import com.partos.whattoeat.models.Ingredient
 import kotlinx.android.synthetic.main.row_ingredient_edit.view.*
 
@@ -61,6 +63,25 @@ class IngredientsEditRecyclerViewAdapter(val ingredientsList: ArrayList<Ingredie
             db.updateIngredient(ingredientsList[position])
         }
 
+        holder.view.row_ingredient_show_delete.setOnClickListener {
+            constraintEdit.visibility = View.GONE
+            constraintDelete.visibility = View.VISIBLE
+        }
+
+        holder.view.row_ingredient_show_button_yes.setOnClickListener {
+            if (ingredientsList.size > 1) {
+                ingredientsList.removeAt(position)
+                notifyItemRemoved(position)
+                notifyItemRangeChanged(position, ingredientsList.size)
+            } else {
+                ToastHelper().cantDeleteAllIngredients(holder.view.context)
+            }
+        }
+
+        holder.view.row_ingredient_show_button_no.setOnClickListener {
+            constraintEdit.visibility = View.VISIBLE
+            constraintDelete.visibility = View.GONE
+        }
     }
 
 }

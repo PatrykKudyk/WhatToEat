@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.partos.whattoeat.R
 import com.partos.whattoeat.adapters.MarginItemDecoration
 import com.partos.whattoeat.adapters.recycler.IngredientsEditRecyclerViewAdapter
-import com.partos.whattoeat.adapters.recycler.MealsRecyclerViewAdapter
 import com.partos.whattoeat.db.DataBaseHelper
 import com.partos.whattoeat.models.Ingredient
 import com.partos.whattoeat.models.Meal
@@ -31,7 +30,7 @@ class MealShowFragmentLogic {
 
     private fun attachVariables(context: Context, mealId: Long) {
         db = DataBaseHelper(context)
-        meal = db.getMealList(mealId)[0]
+        meal = db.getMeal(mealId)[0]
         ingredientList = db.getIngredientList(mealId)
     }
 

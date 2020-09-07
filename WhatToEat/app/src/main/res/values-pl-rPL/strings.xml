@@ -24,5 +24,6 @@
     <string name="delete_question_ingredient">Czy na pewno chcesz usunąć składnik?</string>
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
+    <string name="toast_cant_delete_ingredient">Nie możesz usunąć wszystkich składników</string>
 
 </resources>
