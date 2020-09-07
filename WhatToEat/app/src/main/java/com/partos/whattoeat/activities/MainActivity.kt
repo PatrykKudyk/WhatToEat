@@ -3,6 +3,7 @@ package com.partos.whattoeat.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.partos.whattoeat.R
+import com.partos.whattoeat.db.DataBaseHelper
 import com.partos.whattoeat.fragments.MainFragment
 
 class MainActivity : AppCompatActivity() {

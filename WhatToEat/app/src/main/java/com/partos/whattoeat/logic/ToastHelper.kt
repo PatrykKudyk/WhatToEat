@@ -27,4 +27,12 @@ class ToastHelper {
             Toast.LENGTH_SHORT
         ).show()
     }
+
+    fun cantDeleteAllIngredients(context: Context) {
+        Toast.makeText(
+            context,
+            context.getText(R.string.toast_cant_delete_ingredient),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 }
