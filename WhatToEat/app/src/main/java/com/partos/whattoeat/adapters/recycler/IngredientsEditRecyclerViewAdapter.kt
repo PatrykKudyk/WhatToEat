@@ -70,6 +70,7 @@ class IngredientsEditRecyclerViewAdapter(val ingredientsList: ArrayList<Ingredie
 
         holder.view.row_ingredient_show_button_yes.setOnClickListener {
             if (ingredientsList.size > 1) {
+                db.deleteIngredient(ingredientsList[position].id)
                 ingredientsList.removeAt(position)
                 notifyItemRemoved(position)
                 notifyItemRangeChanged(position, ingredientsList.size)
