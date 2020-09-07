@@ -17,6 +17,7 @@
     <string name="toast_incomplete_ingredients">Not all ingredients are completed</string>
     <string name="toast_no_ingredients">There are no ingredients given</string>
     <string name="toast_name_exists">Given name already exists</string>
+    <string name="add_meal_type">Add meal type</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

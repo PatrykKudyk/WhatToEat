@@ -8,7 +8,7 @@
     <string name="meals_category">Kategoriami</string>
     <string name="meals_all">Wszystkie</string>
     <string name="add_meal">Dodaj posiłek</string>
-    <string name="hint_name_meal">Nazwa potrawy</string>
+    <string name="hint_name_meal">Nazwa posiłku</string>
     <string name="add_ingredient">Dodaj składnik</string>
     <string name="save_meal">Zpisz posiłek</string>
     <string name="hint_name_ingredient">Nazwa składnika</string>
@@ -18,4 +18,5 @@
     <string name="toast_incomplete_ingredients">Nie wszystkie składniki są uzupełnione</string>
     <string name="toast_no_ingredients">Nie podano żadnych składników</string>
     <string name="toast_name_exists">Podana nazwa już istnieje</string>
+    <string name="add_meal_type">Dodaj typ posiłku</string>
 </resources>

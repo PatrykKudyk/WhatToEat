@@ -22,7 +22,7 @@ class AllMealsFragmentLogic {
     }
 
     private fun attachRecyclerView(context: Context) {
-        val mLayoutManager: LinearLayoutManager = LinearLayoutManager(context)
+        val mLayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = mLayoutManager
         recyclerView.addItemDecoration(MarginItemDecoration(12))
         val db = DataBaseHelper(context)
