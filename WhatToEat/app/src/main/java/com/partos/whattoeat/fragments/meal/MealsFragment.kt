@@ -1,4 +1,4 @@
-package com.partos.whattoeat.fragments
+package com.partos.whattoeat.fragments.meal
 
 import android.os.Bundle
 import android.view.LayoutInflater
