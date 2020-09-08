@@ -6,10 +6,11 @@ import android.widget.Button
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import com.partos.whattoeat.MyApp
 import com.partos.whattoeat.R
 import com.partos.whattoeat.adapters.recycler.GenerateMealTypesRecyclerViewAdapter
 import com.partos.whattoeat.fragments.generation.GenerateChooseTypeFragment
-import com.partos.whattoeat.fragments.generation.GenerateMealsFragment
+import com.partos.whattoeat.logic.ToastHelper
 
 class GenerateMealsFragmentListeners {
 
@@ -17,6 +18,7 @@ class GenerateMealsFragmentListeners {
     private lateinit var buttonNo: Button
     private lateinit var recyclerView: RecyclerView
     private lateinit var addNewButton: CardView
+    private lateinit var generateButton: CardView
     private var yes = false
 
     fun initListeners(rootView: View, fragmentManager: FragmentManager) {
@@ -53,6 +55,34 @@ class GenerateMealsFragmentListeners {
                 .addToBackStack(GenerateChooseTypeFragment.toString())
                 .commit()
         }
+
+        generateButton.setOnClickListener {
+            if (areTypesCorrect(context)) {
+
+            }
+        }
+    }
+
+    private fun areTypesCorrect(context: Context): Boolean {
+        if (MyApp.typesList.size > 0) {
+            for (type in MyApp.typesList) {
+                if (yes) {
+                    if (type.wanted <= 0) {
+                        ToastHelper().numberIncorrect(context, type.name)
+                        return false
+                    }
+                } else {
+                    if (type.wanted <= 0 || (type.wanted > type.max)) {
+                        ToastHelper().numberIncorrect(context, type.name)
+                        return false
+                    }
+                }
+            }
+        } else {
+            ToastHelper().noMealsGiven(context)
+            return false
+        }
+        return true
     }
 
     private fun attachViews(rootView: View) {
@@ -60,5 +90,6 @@ class GenerateMealsFragmentListeners {
         buttonNo = rootView.findViewById(R.id.generate_meals_button_no)
         recyclerView = rootView.findViewById(R.id.generate_meals_recycler_view)
         addNewButton = rootView.findViewById(R.id.generate_meals_add)
+        generateButton = rootView.findViewById(R.id.generate_meals_generate)
     }
 }

@@ -48,4 +48,18 @@ class ToastHelper {
         Toast.makeText(context, context.getText(R.string.toast_meal_type_empty), Toast.LENGTH_SHORT)
             .show()
     }
+
+    fun numberIncorrect(context: Context, typeName: String) {
+        Toast.makeText(
+            context,
+            (context.getString(R.string.toast_meal_type_number_incorrect1) + " " + typeName + " " +
+                    context.getString(R.string.toast_meal_type_number_incorrect2)),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    fun noMealsGiven(context: Context) {
+        Toast.makeText(context, context.getText(R.string.toast_no_meal_types), Toast.LENGTH_SHORT)
+            .show()
+    }
 }

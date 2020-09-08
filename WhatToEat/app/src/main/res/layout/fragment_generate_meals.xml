@@ -106,30 +106,68 @@
             android:layout_marginEnd="12dp"
             android:layout_marginStart="12dp"/>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/generate_meals_add"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.1"
-            android:theme="@style/Theme.MaterialComponents.Light"
-            app:cardBackgroundColor="@color/colorRed"
-            app:cardCornerRadius="10dp"
+            android:orientation="horizontal"
+            android:weightSum="100"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.1"
+            android:layout_marginBottom="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp">
+            app:layout_constraintStart_toStartOf="parent">
 
-            <TextView
-                android:layout_width="match_parent"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/generate_meals_add"
+                android:layout_width="0dp"
+                android:layout_weight="48"
                 android:layout_height="match_parent"
-                android:text="@string/add_meal_type"
-                android:gravity="center"
-                android:textColor="@color/colorBackground"
-                android:textSize="30dip"
-                android:fontFamily="@font/dustismo_bold"/>
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:cardBackgroundColor="@color/colorRed"
+                app:cardCornerRadius="6dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/dustismo_bold"
+                    android:gravity="center"
+                    android:text="@string/add_meal_type"
+                    android:textColor="@color/colorBackground"
+                    android:textSize="20dip" />
 
 
-        </com.google.android.material.card.MaterialCardView>
+            </com.google.android.material.card.MaterialCardView>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/generate_meals_generate"
+                android:layout_width="0dp"
+                android:layout_weight="48"
+                android:layout_height="match_parent"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:cardBackgroundColor="@color/colorRedMedium"
+                app:cardCornerRadius="6dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/dustismo_bold"
+                    android:gravity="center"
+                    android:text="@string/generate_final"
+                    android:textColor="@color/colorBackground"
+                    android:textSize="20dip" />
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
