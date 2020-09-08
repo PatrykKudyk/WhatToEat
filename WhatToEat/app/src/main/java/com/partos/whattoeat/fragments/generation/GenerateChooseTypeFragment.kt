@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.partos.whattoeat.R
+import com.partos.whattoeat.logic.generation.logic.GenerateChooseTypeFragmentLogic
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +36,9 @@ class GenerateChooseTypeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_generate_choose_type, container, false)
+        val view = inflater.inflate(R.layout.fragment_generate_choose_type, container, false)
+        GenerateChooseTypeFragmentLogic().initFragment(view)
+        return view
     }
 
     companion object {

@@ -30,6 +30,8 @@
     <string name="type">Type</string>
     <string name="nothing_saved">There is nothing saved</string>
     <string name="allow_duplicates">Do you want to allow meal duplicates?</string>
+    <string name="toast_meal_type_already_chosen">This meal type is already chosen</string>
+    <string name="toast_meal_type_empty">This meal type is empty</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

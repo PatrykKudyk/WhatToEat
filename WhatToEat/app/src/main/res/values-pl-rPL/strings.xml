@@ -31,6 +31,7 @@
     <string name="type">Typ</string>
     <string name="nothing_saved">Nie ma nic zapisanego</string>
     <string name="allow_duplicates">Czy włączyć duplikowanie posiłków?</string>
-
+    <string name="toast_meal_type_already_chosen">Ten typ posiłków został już wybrany</string>
+    <string name="toast_meal_type_empty">Ten typ posiłków jest pusty</string>
 
 </resources>

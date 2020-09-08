@@ -8,6 +8,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.partos.whattoeat.R
 import com.partos.whattoeat.adapters.recycler.GenerateMealTypesRecyclerViewAdapter
+import com.partos.whattoeat.fragments.generation.GenerateChooseTypeFragment
+import com.partos.whattoeat.fragments.generation.GenerateMealsFragment
 
 class GenerateMealsFragmentListeners {
 
@@ -40,7 +42,16 @@ class GenerateMealsFragmentListeners {
             }
         }
         addNewButton.setOnClickListener {
-
+            val fragment = GenerateChooseTypeFragment.newInstance()
+            fragmentManager
+                .beginTransaction()
+                .setCustomAnimations(
+                    R.anim.enter_right_to_left, R.anim.exit_left_to_right,
+                    R.anim.enter_left_to_right, R.anim.exit_right_to_left
+                )
+                .replace(R.id.main_frame_layout, fragment)
+                .addToBackStack(GenerateChooseTypeFragment.toString())
+                .commit()
         }
     }
 
