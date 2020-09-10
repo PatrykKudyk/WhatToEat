@@ -20,7 +20,6 @@ class GenerateMealsFragmentListeners {
     private lateinit var recyclerView: RecyclerView
     private lateinit var addNewButton: CardView
     private lateinit var generateButton: CardView
-    private var yes = false
 
     fun initListeners(rootView: View, fragmentManager: FragmentManager) {
         attachViews(rootView)
@@ -29,16 +28,16 @@ class GenerateMealsFragmentListeners {
 
     private fun attachListeners(fragmentManager: FragmentManager, context: Context) {
         buttonYes.setOnClickListener {
-            if (!yes) {
-                yes = true
+            if (!MyApp.allowDuplicates) {
+                MyApp.allowDuplicates = true
                 buttonYes.background = context.getDrawable(R.drawable.button_background_red)
                 buttonNo.background = context.getDrawable(R.drawable.button_background_red_light)
                 recyclerView.adapter = GenerateMealTypesRecyclerViewAdapter(true)
             }
         }
         buttonNo.setOnClickListener {
-            if (yes) {
-                yes = false
+            if (MyApp.allowDuplicates) {
+                MyApp.allowDuplicates = false
                 buttonNo.background = context.getDrawable(R.drawable.button_background_red)
                 buttonYes.background = context.getDrawable(R.drawable.button_background_red_light)
                 recyclerView.adapter = GenerateMealTypesRecyclerViewAdapter(false)
@@ -59,7 +58,7 @@ class GenerateMealsFragmentListeners {
 
         generateButton.setOnClickListener {
             if (areTypesCorrect(context)) {
-                val fragment = GenerateGeneratedFragment.newInstance(yes)
+                val fragment = GenerateGeneratedFragment.newInstance(MyApp.allowDuplicates)
                 fragmentManager
                     .beginTransaction()
                     .setCustomAnimations(
@@ -76,7 +75,7 @@ class GenerateMealsFragmentListeners {
     private fun areTypesCorrect(context: Context): Boolean {
         if (MyApp.typesList.size > 0) {
             for (type in MyApp.typesList) {
-                if (yes) {
+                if (MyApp.allowDuplicates) {
                     if (type.wanted <= 0) {
                         ToastHelper().numberIncorrect(context, type.name)
                         return false

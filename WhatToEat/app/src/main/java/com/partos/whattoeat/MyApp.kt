@@ -10,5 +10,6 @@ class MyApp : Application() {
         var ingredientsList = ArrayList<Ingredient>()
         var mealName = ""
         var typesList = ArrayList<MealTypeGeneration>()
+        var allowDuplicates = false
     }
 }

@@ -20,6 +20,7 @@ class GenerateMenuFragmentListeners {
 
     private fun attachListeners(fragmentManager: FragmentManager) {
         generateButton.setOnClickListener {
+            MyApp.allowDuplicates = false
             MyApp.typesList.clear()
             val fragment = GenerateMealsFragment.newInstance()
             fragmentManager
