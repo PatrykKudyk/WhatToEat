@@ -40,5 +40,6 @@
     <string name="save_meals">Zapisz paczkę posiłków</string>
     <string name="get_ingredients_list">Zobacz listę składników</string>
     <string name="toast_successfully_saved">Pomyślnie zapisano</string>
+    <string name="hint_meal_pack_name">Nazwa paczki</string>
 
 </resources>
