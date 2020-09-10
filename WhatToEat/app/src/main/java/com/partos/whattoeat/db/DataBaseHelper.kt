@@ -65,7 +65,7 @@ object BasicCommand {
 }
 
 class DataBaseHelper(context: Context) :
-    SQLiteOpenHelper(context, TableInfo.DATABASE_NAME, null, 1) {
+    SQLiteOpenHelper(context, TableInfo.DATABASE_NAME, null, 2) {
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(BasicCommand.SQL_CREATE_TABLE_MEAL_TYPE)
         db?.execSQL(BasicCommand.SQL_CREATE_TABLE_MEAL)
@@ -335,6 +335,27 @@ class DataBaseHelper(context: Context) :
         result.close()
         db.close()
         return mealPackList
+    }
+
+    fun getMealPack(mealPackName: String): MealPack {
+        var mealPackList = ArrayList<MealPack>()
+        val db = readableDatabase
+        val selectQuery =
+            "Select * from ${TableInfo.TABLE_NAME_MEAL_PACK} where ${TableInfo.TABLE_COLUMN_NAME} = \"" +
+                    mealPackName + "\""
+        val result = db.rawQuery(selectQuery, null)
+        if (result.moveToFirst()) {
+            do {
+                var mealPack = MealPack(
+                    result.getLong(result.getColumnIndex(BaseColumns._ID)),
+                    result.getString(result.getColumnIndex(TableInfo.TABLE_COLUMN_NAME))
+                )
+                mealPackList.add(mealPack)
+            } while (result.moveToNext())
+        }
+        result.close()
+        db.close()
+        return mealPackList[0]
     }
 
     fun addMealPack(name: String) {

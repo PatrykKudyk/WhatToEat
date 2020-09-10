@@ -1,14 +1,19 @@
 package com.partos.whattoeat.logic.generation.listeners
 
+import android.content.Context
+import android.icu.util.Calendar
 import android.view.View
 import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.FragmentManager
 import com.partos.whattoeat.MyApp
 import com.partos.whattoeat.R
+import com.partos.whattoeat.db.DataBaseHelper
 import com.partos.whattoeat.fragments.generation.GenerateIngredientsFragment
+import com.partos.whattoeat.logic.ToastHelper
 import com.partos.whattoeat.models.Ingredient
 import com.partos.whattoeat.models.Meal
+import com.partos.whattoeat.models.MealFromPack
 
 class GenerateGeneratedFragmentListeners {
 
@@ -26,14 +31,20 @@ class GenerateGeneratedFragmentListeners {
         mealsList: ArrayList<Meal>
     ) {
         attachViews(rootView)
-        attachListeners(fragmentManager, mealsList)
+        attachListeners(fragmentManager, mealsList, rootView.context)
     }
 
-    private fun attachListeners(fragmentManager: FragmentManager, mealsList: ArrayList<Meal>) {
+    private fun attachListeners(
+        fragmentManager: FragmentManager,
+        mealsList: ArrayList<Meal>,
+        context: Context
+    ) {
         saveButton.setOnClickListener {
             saveLinear.visibility = View.GONE
             noSaveLinear.visibility = View.VISIBLE
             MyApp.isSaved = true
+            saveMeals(mealsList,context)
+            ToastHelper().successfullySaved(context)
         }
         ingredientsButton.setOnClickListener {
             val fragment = GenerateIngredientsFragment.newInstance()
@@ -58,6 +69,25 @@ class GenerateGeneratedFragmentListeners {
                 .replace(R.id.main_frame_layout, fragment)
                 .addToBackStack(GenerateIngredientsFragment.toString())
                 .commit()
+        }
+    }
+
+    private fun saveMeals(mealsList: ArrayList<Meal>, context: Context) {
+        val db = DataBaseHelper(context)
+        val now = Calendar.getInstance()
+        val name = now.get(Calendar.YEAR).toString() + "/" + (now.get(Calendar.MONTH) + 1).toString() + "/" +
+                now.get(Calendar.DAY_OF_MONTH) + " " + now.get(Calendar.HOUR_OF_DAY) + ":" +
+                now.get(Calendar.MINUTE) + ":" + now.get(Calendar.SECOND)
+        db.addMealPack(name)
+        val mealPack = db.getMealPack(name)
+        for(meal in mealsList) {
+            db.addMealFromPack(
+                MealFromPack(
+                    0,
+                    mealPack.id,
+                    meal.id
+                )
+            )
         }
     }
 

@@ -62,4 +62,12 @@ class ToastHelper {
         Toast.makeText(context, context.getText(R.string.toast_no_meal_types), Toast.LENGTH_SHORT)
             .show()
     }
+
+    fun successfullySaved(context: Context) {
+        Toast.makeText(
+            context,
+            context.getText(R.string.toast_successfully_saved),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 }

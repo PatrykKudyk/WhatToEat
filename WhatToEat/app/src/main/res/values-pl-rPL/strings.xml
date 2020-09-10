@@ -39,5 +39,6 @@
     <string name="toast_no_meal_types">Nie podano żadnych typów posiłków</string>
     <string name="save_meals">Zapisz paczkę posiłków</string>
     <string name="get_ingredients_list">Zobacz listę składników</string>
+    <string name="toast_successfully_saved">Pomyślnie zapisano</string>
 
 </resources>
