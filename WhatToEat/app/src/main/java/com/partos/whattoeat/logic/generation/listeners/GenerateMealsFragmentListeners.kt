@@ -58,6 +58,8 @@ class GenerateMealsFragmentListeners {
 
         generateButton.setOnClickListener {
             if (areTypesCorrect(context)) {
+                MyApp.isSaved = false
+                MyApp.ingredientsList.clear()
                 val fragment = GenerateGeneratedFragment.newInstance(MyApp.allowDuplicates)
                 fragmentManager
                     .beginTransaction()
