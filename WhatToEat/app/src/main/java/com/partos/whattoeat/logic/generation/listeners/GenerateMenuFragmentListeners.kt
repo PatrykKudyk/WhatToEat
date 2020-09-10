@@ -3,6 +3,7 @@ package com.partos.whattoeat.logic.generation.listeners
 import android.view.View
 import android.widget.Button
 import androidx.fragment.app.FragmentManager
+import com.partos.whattoeat.MyApp
 import com.partos.whattoeat.R
 import com.partos.whattoeat.fragments.generation.GenerateMealsFragment
 import com.partos.whattoeat.fragments.generation.GenerateSavedListFragment
@@ -19,6 +20,8 @@ class GenerateMenuFragmentListeners {
 
     private fun attachListeners(fragmentManager: FragmentManager) {
         generateButton.setOnClickListener {
+            MyApp.allowDuplicates = false
+            MyApp.typesList.clear()
             val fragment = GenerateMealsFragment.newInstance()
             fragmentManager
                 .beginTransaction()

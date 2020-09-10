@@ -1,13 +1,12 @@
 package com.partos.whattoeat.fragments.generation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.Fragment
 import com.partos.whattoeat.R
-import com.partos.whattoeat.logic.generation.logic.GenerateMealsFragmentLogic
+import com.partos.whattoeat.logic.generation.logic.GenerateIngredientsFragmentLogic
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,10 +15,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [GenerateMealsFragment.newInstance] factory method to
+ * Use the [GenerateIngredientsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class GenerateMealsFragment : Fragment() {
+class GenerateIngredientsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -37,8 +36,8 @@ class GenerateMealsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_generate_meals, container, false)
-        GenerateMealsFragmentLogic().initFragment(view, fragmentManager as FragmentManager)
+        val view = inflater.inflate(R.layout.fragment_generate_ingredients, container, false)
+        GenerateIngredientsFragmentLogic().initFragment(view)
         return view
     }
 
@@ -49,12 +48,12 @@ class GenerateMealsFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment GenerateMealsFragment.
+         * @return A new instance of fragment GenerateIngredientsFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
-            GenerateMealsFragment().apply {
+            GenerateIngredientsFragment().apply {
                 arguments = Bundle().apply {
 
                 }
