@@ -1,4 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">WhatToEat</string>
+    <string name="app_name">Co By Zjadł</string>
+    <string name="app_title">Co By Zjadł</string>
+    <string name="meals">Posiłki</string>
+    <string name="generate_meals_list">Generuj listę posiłków</string>
+    <string name="meals_show">Jakie posiłki chcesz wyświetlić?</string>
+    <string name="meals_category">Kategoriami</string>
+    <string name="meals_all">Wszystkie</string>
+    <string name="add_meal">Dodaj posiłek</string>
+    <string name="hint_name_meal">Nazwa posiłku</string>
+    <string name="add_ingredient">Dodaj składnik</string>
+    <string name="save_meal">Zpisz posiłek</string>
+    <string name="hint_name_ingredient">Nazwa składnika</string>
+    <string name="hint_amount">Ilość</string>
+    <string name="hint_type">Typ (ml, łyżki itp.)</string>
+    <string name="toast_no_name">Nie podano nazwy</string>
+    <string name="toast_incomplete_ingredients">Nie wszystkie składniki są uzupełnione</string>
+    <string name="toast_no_ingredients">Nie podano żadnych składników</string>
+    <string name="toast_name_exists">Podana nazwa już istnieje</string>
+    <string name="add_meal_type">Dodaj typ posiłku</string>
+    <string name="hint_name_meal_type">Nazwa typu posiłku</string>
+    <string name="add">Dodaj</string>
+    <string name="delete_question_ingredient">Czy na pewno chcesz usunąć składnik?</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+    <string name="toast_cant_delete_ingredient">Nie możesz usunąć wszystkich składników</string>
+    <string name="generate">Wygeneruj nowe</string>
+    <string name="saved">Zapisane</string>
+    <string name="new_ingredient">Nowy składnik</string>
+    <string name="type">Typ</string>
+    <string name="nothing_saved">Nie ma nic zapisanego</string>
+    <string name="allow_duplicates">Czy włączyć duplikowanie posiłków?</string>
+    <string name="toast_meal_type_already_chosen">Ten typ posiłków został już wybrany</string>
+    <string name="toast_meal_type_empty">Ten typ posiłków jest pusty</string>
+    <string name="generate_final">Generuj</string>
+    <string name="toast_meal_type_number_incorrect1">Ilość podana w</string>
+    <string name="toast_meal_type_number_incorrect2">jest niepoprawna</string>
+    <string name="toast_no_meal_types">Nie podano żadnych typów posiłków</string>
+    <string name="save_meals">Zapisz paczkę posiłków</string>
+    <string name="get_ingredients_list">Zobacz listę składników</string>
+    <string name="toast_successfully_saved">Pomyślnie zapisano</string>
+    <string name="hint_meal_pack_name">Nazwa paczki</string>
+
 </resources>

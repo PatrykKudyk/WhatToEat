@@ -1,351 +1,448 @@
-package com.partos.flashback.db
+package com.partos.whattoeat.db
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
-import com.partos.todoapp.models.Date
-import com.partos.todoapp.models.ToDo
+import com.partos.whattoeat.models.*
 
 object TableInfo : BaseColumns {
-    const val DATABASE_NAME = "ToDoDB"
-    const val TABLE_NAME_TO_DO = "Todo"
-    const val TABLE_COLUMN_TO_DO_DATE = "dateId"
-    const val TABLE_COLUMN_TO_DO_TEXT = "text"
-    const val TABLE_COLUMN_TO_DO_IS_DONE = "isDone"
-    const val TABLE_NAME_DATE = "Date"
-    const val TABLE_COLUMN_DAY = "day"
-    const val TABLE_COLUMN_MONTH = "month"
-    const val TABLE_COLUMN_YEAR = "year"
-    const val TABLE_COLUMN_DAY_OF_WEEK = "dayOfWeek"
+    const val DATABASE_NAME = "WhatToEat"
+    const val TABLE_NAME_MEAL_TYPE = "MealType"
+    const val TABLE_COLUMN_NAME = "name"
+    const val TABLE_NAME_MEAL = "Meal"
+    const val TABLE_COLUMN_TYPE_ID = "typeId"
+    const val TABLE_NAME_INGREDIENT = "Ingredient"
+    const val TABLE_COLUMN_TYPE = "type"
+    const val TABLE_COLUMN_AMOUNT = "amount"
+    const val TABLE_COLUMN_MEAL_ID = "mealId"
+    const val TABLE_NAME_MEAL_PACK = "MealPack"
+    const val TABLE_NAME_MEAL_FROM_PACK = "MealFromPack"
+    const val TABLE_COLUMN_MEAL_PACK_ID = "mealPackId"
 }
 
 object BasicCommand {
-    const val SQL_CREATE_TABLE_TO_DO =
-        "CREATE TABLE ${TableInfo.TABLE_NAME_TO_DO} (" +
+    const val SQL_CREATE_TABLE_MEAL_TYPE =
+        "CREATE TABLE ${TableInfo.TABLE_NAME_MEAL_TYPE} (" +
                 "${BaseColumns._ID} INTEGER PRIMARY KEY," +
-                "${TableInfo.TABLE_COLUMN_TO_DO_DATE} INTEGER KEY," +
-                "${TableInfo.TABLE_COLUMN_TO_DO_TEXT} TEXT NOT NULL," +
-                "${TableInfo.TABLE_COLUMN_TO_DO_IS_DONE} INTEGER NOT NULL)"
+                "${TableInfo.TABLE_COLUMN_NAME} TEXT NOT NULL)"
 
-    const val SQL_CREATE_TABLE_DATE =
-        "CREATE TABLE ${TableInfo.TABLE_NAME_DATE} (" +
+    const val SQL_CREATE_TABLE_MEAL =
+        "CREATE TABLE ${TableInfo.TABLE_NAME_MEAL} (" +
                 "${BaseColumns._ID} INTEGER PRIMARY KEY," +
-                "${TableInfo.TABLE_COLUMN_DAY} INTEGER NOT NULL," +
-                "${TableInfo.TABLE_COLUMN_MONTH} INTEGER NOT NULL," +
-                "${TableInfo.TABLE_COLUMN_YEAR} INTEGER NOT NULL," +
-                "${TableInfo.TABLE_COLUMN_DAY_OF_WEEK} INTEGER NOT NULL)"
+                "${TableInfo.TABLE_COLUMN_NAME} TEXT NOT NULL," +
+                "${TableInfo.TABLE_COLUMN_TYPE_ID} INTEGER NOT NULL)"
 
-    const val SQL_DELETE_TABLE_TO_DO = "DROP TABLE IF EXISTS ${TableInfo.TABLE_NAME_TO_DO}"
-    const val SQL_DELETE_TABLE_DATE = "DROP TABLE IF EXISTS ${TableInfo.TABLE_NAME_DATE}"
+    const val SQL_CREATE_TABLE_INGREDIENT =
+        "CREATE TABLE ${TableInfo.TABLE_NAME_INGREDIENT} (" +
+                "${BaseColumns._ID} INTEGER PRIMARY KEY," +
+                "${TableInfo.TABLE_COLUMN_NAME} TEXT NOT NULL," +
+                "${TableInfo.TABLE_COLUMN_AMOUNT} TEXT NOT NULL," +
+                "${TableInfo.TABLE_COLUMN_TYPE} TEXT NOT NULL," +
+                "${TableInfo.TABLE_COLUMN_MEAL_ID} INTEGER NOT NULL)"
 
+    const val SQL_CREATE_TABLE_MEAL_PACK =
+        "CREATE TABLE ${TableInfo.TABLE_NAME_MEAL_PACK} (" +
+                "${BaseColumns._ID} INTEGER PRIMARY KEY," +
+                "${TableInfo.TABLE_COLUMN_NAME} TEXT NOT NULL)"
+
+    const val SQL_CREATE_TABLE_MEAL_FROM_PACK =
+        "CREATE TABLE ${TableInfo.TABLE_NAME_MEAL_FROM_PACK} (" +
+                "${BaseColumns._ID} INTEGER PRIMARY KEY," +
+                "${TableInfo.TABLE_COLUMN_MEAL_PACK_ID} INTEGER NOT NULL," +
+                "${TableInfo.TABLE_COLUMN_MEAL_ID} INTEGER NOT NULL)"
+
+
+    const val SQL_DELETE_TABLE_MEAL_TYPE =
+        "DROP TABLE IF EXISTS ${TableInfo.TABLE_NAME_MEAL_TYPE}"
+    const val SQL_DELETE_TABLE_MEAL = "DROP TABLE IF EXISTS ${TableInfo.TABLE_NAME_MEAL}"
+    const val SQL_DELETE_TABLE_INGREDIENT =
+        "DROP TABLE IF EXISTS ${TableInfo.TABLE_NAME_INGREDIENT}"
+    const val SQL_DELETE_TABLE_MEAL_PACK = "DROP TABLE IF EXISTS ${TableInfo.TABLE_NAME_MEAL_PACK}"
+    const val SQL_DELETE_TABLE_MEAL_FROM_PACK =
+        "DROP TABLE IF EXISTS ${TableInfo.TABLE_NAME_MEAL_FROM_PACK}"
 }
 
 class DataBaseHelper(context: Context) :
     SQLiteOpenHelper(context, TableInfo.DATABASE_NAME, null, 2) {
     override fun onCreate(db: SQLiteDatabase?) {
-        db?.execSQL(BasicCommand.SQL_CREATE_TABLE_TO_DO)
-        db?.execSQL(BasicCommand.SQL_CREATE_TABLE_DATE)
+        db?.execSQL(BasicCommand.SQL_CREATE_TABLE_MEAL_TYPE)
+        db?.execSQL(BasicCommand.SQL_CREATE_TABLE_MEAL)
+        db?.execSQL(BasicCommand.SQL_CREATE_TABLE_INGREDIENT)
+        db?.execSQL(BasicCommand.SQL_CREATE_TABLE_MEAL_PACK)
+        db?.execSQL(BasicCommand.SQL_CREATE_TABLE_MEAL_FROM_PACK)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
-        db?.execSQL(BasicCommand.SQL_DELETE_TABLE_TO_DO)
-        db?.execSQL(BasicCommand.SQL_DELETE_TABLE_DATE)
+        db?.execSQL(BasicCommand.SQL_DELETE_TABLE_MEAL_TYPE)
+        db?.execSQL(BasicCommand.SQL_DELETE_TABLE_MEAL)
+        db?.execSQL(BasicCommand.SQL_DELETE_TABLE_INGREDIENT)
+        db?.execSQL(BasicCommand.SQL_DELETE_TABLE_MEAL_PACK)
+        db?.execSQL(BasicCommand.SQL_DELETE_TABLE_MEAL_FROM_PACK)
         onCreate(db)
     }
 
-    fun initMonth(month: Int, year: Int) {
-        var special = false
-        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
-            special = true
-        }
-        for (day in 1..31) {
-            if (month == 2) {
-                if (special && day <= 29) {
-                    addDate(day, month, year, getDayOfWeek(day, month, year))
-                } else if (day <= 28) {
-                    addDate(day, month, year, getDayOfWeek(day, month, year))
-                }
-            } else if (month == 4 || month == 6 || month == 9 || month == 11) {
-                if (day <= 30) {
-                    addDate(day, month, year, getDayOfWeek(day, month, year))
-                }
-            } else {
-                addDate(day, month, year, getDayOfWeek(day, month, year))
-            }
-        }
-    }
-
-    private fun getDayOfWeek(day: Int, month: Int, year: Int): Int {
-        var days = 0
-        for (number in 2020..year) {
-            if (number != year) {
-                if ((number % 4 == 0 && number % 100 != 0) || number % 400 == 0) {
-                    days += 366
-                } else {
-                    days += 365
-                }
-            } else {
-                if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
-                    days += getDays(false, month, day)
-                } else {
-                    days += getDays(true, month, day)
-                }
-            }
-        }
-        return when (days % 7) {
-            0 -> 2
-            1 -> 3
-            2 -> 4
-            3 -> 5
-            4 -> 6
-            5 -> 7
-            6 -> 1
-            else -> 0
-        }
-    }
-
-    private fun getDays(normal: Boolean, month: Int, day: Int): Int {
-        if (normal) {
-            when (month) {
-                1 -> return day
-                2 -> return 31 + day
-                3 -> return 59 + day
-                4 -> return 90 + day
-                5 -> return 120 + day
-                6 -> return 151 + day
-                7 -> return 181 + day
-                8 -> return 212 + day
-                9 -> return 243 + day
-                10 -> return 273 + day
-                11 -> return 304 + day
-                12 -> return 334 + day
-            }
-        } else {
-            when (month) {
-                1 -> return day
-                2 -> return 31 + day
-                3 -> return 60 + day
-                4 -> return 91 + day
-                5 -> return 121 + day
-                6 -> return 152 + day
-                7 -> return 182 + day
-                8 -> return 213 + day
-                9 -> return 244 + day
-                10 -> return 274 + day
-                11 -> return 305 + day
-                12 -> return 335 + day
-            }
-        }
-        return 0
-    }
-
-
-    fun getToDoList(dateId: Long): ArrayList<ToDo> {
-        var toDoList = ArrayList<ToDo>()
+    fun getMealTypeList(): ArrayList<MealType> {
+        var mealTypeList = ArrayList<MealType>()
         val db = readableDatabase
-        val selectQuery = "Select * from ${TableInfo.TABLE_NAME_TO_DO} where ${TableInfo.TABLE_COLUMN_TO_DO_DATE} = " +
-                dateId.toString()
+        val selectQuery = "Select * from ${TableInfo.TABLE_NAME_MEAL_TYPE}"
         val result = db.rawQuery(selectQuery, null)
         if (result.moveToFirst()) {
             do {
-                var myToDo = ToDo(
+                var mealType = MealType(
                     result.getLong(result.getColumnIndex(BaseColumns._ID)),
-                    result.getLong(result.getColumnIndex(TableInfo.TABLE_COLUMN_TO_DO_DATE)),
-                    result.getString(result.getColumnIndex(TableInfo.TABLE_COLUMN_TO_DO_TEXT)),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_TO_DO_IS_DONE))
+                    result.getString(result.getColumnIndex(TableInfo.TABLE_COLUMN_NAME))
                 )
-                toDoList.add(myToDo)
+                mealTypeList.add(mealType)
             } while (result.moveToNext())
         }
         result.close()
         db.close()
-        return toDoList
+        return mealTypeList
     }
 
-    fun addToDo(text: String, dateId: Long) {
+    fun addMealType(name: String) {
         val db = this.writableDatabase
         val values = ContentValues()
-        values.put(TableInfo.TABLE_COLUMN_TO_DO_DATE, dateId)
-        values.put(TableInfo.TABLE_COLUMN_TO_DO_TEXT, text)
-        values.put(TableInfo.TABLE_COLUMN_TO_DO_IS_DONE, 0)
-        db.insert(TableInfo.TABLE_NAME_TO_DO, null, values)
+        values.put(TableInfo.TABLE_COLUMN_NAME, name)
+        db.insert(TableInfo.TABLE_NAME_MEAL_TYPE, null, values)
         db.close()
     }
 
-    fun updateToDo(toDo: ToDo) {
+    fun updateMealType(mealType: MealType) {
         val db = this.writableDatabase
         val values = ContentValues()
-        values.put(TableInfo.TABLE_COLUMN_TO_DO_DATE, toDo.dateId)
-        values.put(TableInfo.TABLE_COLUMN_TO_DO_TEXT, toDo.text)
-        values.put(TableInfo.TABLE_COLUMN_TO_DO_IS_DONE, toDo.isDone)
+        values.put(TableInfo.TABLE_COLUMN_NAME, mealType.name)
         db.update(
-            TableInfo.TABLE_NAME_TO_DO, values, BaseColumns._ID + "=?",
-            arrayOf(toDo.id.toString())
+            TableInfo.TABLE_NAME_MEAL_TYPE, values, BaseColumns._ID + "=?",
+            arrayOf(mealType.id.toString())
         )
         db.close()
     }
 
-    fun deleteToDo(toDoId: Long): Boolean {
+    fun deleteMealType(mealTypeId: Long): Boolean {
         val db = this.writableDatabase
         val success =
             db.delete(
-                TableInfo.TABLE_NAME_TO_DO,
+                TableInfo.TABLE_NAME_MEAL_TYPE,
                 BaseColumns._ID + "=?",
-                arrayOf(toDoId.toString())
+                arrayOf(mealTypeId.toString())
             )
                 .toLong()
         db.close()
         return Integer.parseInt("$success") != -1
     }
 
-    fun getDateList(): ArrayList<Date> {
-        var dateList = ArrayList<Date>()
+
+    fun getMealList(): ArrayList<Meal> {
+        var mealList = ArrayList<Meal>()
         val db = readableDatabase
-        val selectQuery = "Select * from ${TableInfo.TABLE_NAME_DATE}"
+        val selectQuery = "Select * from ${TableInfo.TABLE_NAME_MEAL}"
         val result = db.rawQuery(selectQuery, null)
         if (result.moveToFirst()) {
             do {
-                val date = Date(
-                    result.getInt(result.getColumnIndex(BaseColumns._ID)).toLong(),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_DAY)),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_MONTH)),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_YEAR)),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_DAY_OF_WEEK))
+                var meal = Meal(
+                    result.getLong(result.getColumnIndex(BaseColumns._ID)),
+                    result.getString(result.getColumnIndex(TableInfo.TABLE_COLUMN_NAME)),
+                    result.getLong(result.getColumnIndex(TableInfo.TABLE_COLUMN_TYPE_ID))
                 )
-                dateList.add(date)
+                mealList.add(meal)
             } while (result.moveToNext())
         }
         result.close()
         db.close()
-        return dateList
+        return mealList
     }
 
-    fun getDateList(fromYear: Int, toYear: Int): ArrayList<Date> {
-        var dateList = ArrayList<Date>()
-        val db = readableDatabase
-        val selectQuery =
-            "Select * from ${TableInfo.TABLE_NAME_DATE} where ${TableInfo.TABLE_COLUMN_YEAR} >= " +
-                    fromYear.toString() + " and ${TableInfo.TABLE_COLUMN_YEAR} <=" + toYear.toString()
-        val result = db.rawQuery(selectQuery, null)
-        if (result.moveToFirst()) {
-            do {
-                val date = Date(
-                    result.getInt(result.getColumnIndex(BaseColumns._ID)).toLong(),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_DAY)),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_MONTH)),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_YEAR)),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_DAY_OF_WEEK))
-                )
-                dateList.add(date)
-            } while (result.moveToNext())
-        }
-        result.close()
-        db.close()
-        return dateList
-    }
-
-    fun getMonth(month: Int, year: Int): ArrayList<Date> {
-        var dateList = ArrayList<Date>()
+    fun getMealList(typeId: Long): ArrayList<Meal> {
+        var mealList = ArrayList<Meal>()
         val db = readableDatabase
         val selectQuery =
-            "Select * from ${TableInfo.TABLE_NAME_DATE} where ${TableInfo.TABLE_COLUMN_MONTH} = " + month.toString() +
-                    " and ${TableInfo.TABLE_COLUMN_YEAR} = " + year.toString()
+            "Select * from ${TableInfo.TABLE_NAME_MEAL} where ${TableInfo.TABLE_COLUMN_TYPE_ID} = " +
+                    typeId.toString()
         val result = db.rawQuery(selectQuery, null)
         if (result.moveToFirst()) {
             do {
-                val date = Date(
-                    result.getInt(result.getColumnIndex(BaseColumns._ID)).toLong(),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_DAY)),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_MONTH)),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_YEAR)),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_DAY_OF_WEEK))
+                var meal = Meal(
+                    result.getLong(result.getColumnIndex(BaseColumns._ID)),
+                    result.getString(result.getColumnIndex(TableInfo.TABLE_COLUMN_NAME)),
+                    result.getLong(result.getColumnIndex(TableInfo.TABLE_COLUMN_TYPE_ID))
                 )
-                dateList.add(date)
+                mealList.add(meal)
             } while (result.moveToNext())
         }
-
         result.close()
         db.close()
-        return dateList
+        return mealList
     }
 
-    fun getDate(day: Int, month: Int, year: Int): Date {
-        var dateList = ArrayList<Date>()
+    fun getMealList(name: String): ArrayList<Meal> {
+        var mealList = ArrayList<Meal>()
         val db = readableDatabase
         val selectQuery =
-            "Select * from ${TableInfo.TABLE_NAME_DATE} where ${TableInfo.TABLE_COLUMN_DAY} = " +
-                    day.toString() + " and ${TableInfo.TABLE_COLUMN_MONTH} = " + month.toString() +
-                    " and ${TableInfo.TABLE_COLUMN_YEAR} = " + year.toString()
+            "Select * from ${TableInfo.TABLE_NAME_MEAL} where ${TableInfo.TABLE_COLUMN_NAME} = \"" +
+                    name + "\""
         val result = db.rawQuery(selectQuery, null)
         if (result.moveToFirst()) {
             do {
-                val date = Date(
-                    result.getInt(result.getColumnIndex(BaseColumns._ID)).toLong(),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_DAY)),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_MONTH)),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_YEAR)),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_DAY_OF_WEEK))
+                var meal = Meal(
+                    result.getLong(result.getColumnIndex(BaseColumns._ID)),
+                    result.getString(result.getColumnIndex(TableInfo.TABLE_COLUMN_NAME)),
+                    result.getLong(result.getColumnIndex(TableInfo.TABLE_COLUMN_TYPE_ID))
                 )
-                dateList.add(date)
+                mealList.add(meal)
             } while (result.moveToNext())
         }
-
         result.close()
         db.close()
-        return dateList[0]
+        return mealList
     }
 
-    fun getDate(dateId: Long): Date {
-        var dateList = ArrayList<Date>()
+    fun getMeal(mealId: Long): ArrayList<Meal> {
+        var mealList = ArrayList<Meal>()
         val db = readableDatabase
-        val selectQuery =
-            "Select * from ${TableInfo.TABLE_NAME_DATE} where ${BaseColumns._ID} = " +
-                    dateId.toString()
+        val selectQuery = "Select * from ${TableInfo.TABLE_NAME_MEAL} where ${BaseColumns._ID} = " +
+                mealId.toString()
         val result = db.rawQuery(selectQuery, null)
         if (result.moveToFirst()) {
             do {
-                val date = Date(
-                    result.getInt(result.getColumnIndex(BaseColumns._ID)).toLong(),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_DAY)),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_MONTH)),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_YEAR)),
-                    result.getInt(result.getColumnIndex(TableInfo.TABLE_COLUMN_DAY_OF_WEEK))
+                var meal = Meal(
+                    result.getLong(result.getColumnIndex(BaseColumns._ID)),
+                    result.getString(result.getColumnIndex(TableInfo.TABLE_COLUMN_NAME)),
+                    result.getLong(result.getColumnIndex(TableInfo.TABLE_COLUMN_TYPE_ID))
                 )
-                dateList.add(date)
+                mealList.add(meal)
             } while (result.moveToNext())
         }
-
         result.close()
         db.close()
-        return dateList[0]
+        return mealList
     }
 
-
-    fun addDate(day: Int, month: Int, year: Int, dayOfWeek: Int): Boolean {
+    fun addMeal(name: String, typeId: Long) {
         val db = this.writableDatabase
         val values = ContentValues()
-        values.put(TableInfo.TABLE_COLUMN_DAY, day)
-        values.put(TableInfo.TABLE_COLUMN_MONTH, month)
-        values.put(TableInfo.TABLE_COLUMN_YEAR, year)
-        values.put(TableInfo.TABLE_COLUMN_DAY_OF_WEEK, dayOfWeek)
-        val success = db.insert(TableInfo.TABLE_NAME_DATE, null, values)
+        values.put(TableInfo.TABLE_COLUMN_NAME, name)
+        values.put(TableInfo.TABLE_COLUMN_TYPE_ID, typeId)
+        db.insert(TableInfo.TABLE_NAME_MEAL, null, values)
         db.close()
-        return (Integer.parseInt("$success") != -1)
     }
 
-    fun updateDate(date: Date): Boolean {
+    fun updateMeal(meal: Meal) {
         val db = this.writableDatabase
         val values = ContentValues()
-        values.put(TableInfo.TABLE_COLUMN_DAY, date.day)
-        values.put(TableInfo.TABLE_COLUMN_MONTH, date.month)
-        values.put(TableInfo.TABLE_COLUMN_YEAR, date.year)
-        values.put(TableInfo.TABLE_COLUMN_DAY_OF_WEEK, date.dayOfWeek)
-        val success = db.update(
-            TableInfo.TABLE_NAME_DATE, values, BaseColumns._ID + "=?",
-            arrayOf(date.id.toString())
-        ).toLong()
+        values.put(TableInfo.TABLE_COLUMN_NAME, meal.name)
+        values.put(TableInfo.TABLE_COLUMN_TYPE_ID, meal.typeId)
+        db.update(
+            TableInfo.TABLE_NAME_MEAL, values, BaseColumns._ID + "=?",
+            arrayOf(meal.id.toString())
+        )
+        db.close()
+    }
+
+    fun deleteMeal(mealId: Long): Boolean {
+        val db = this.writableDatabase
+        val success =
+            db.delete(
+                TableInfo.TABLE_NAME_MEAL,
+                BaseColumns._ID + "=?",
+                arrayOf(mealId.toString())
+            )
+                .toLong()
+        db.close()
+        return Integer.parseInt("$success") != -1
+    }
+
+    fun getIngredientList(mealId: Long): ArrayList<Ingredient> {
+        var ingredientList = ArrayList<Ingredient>()
+        val db = readableDatabase
+        val selectQuery =
+            "Select * from ${TableInfo.TABLE_NAME_INGREDIENT} where ${TableInfo.TABLE_COLUMN_MEAL_ID} = " +
+                    mealId.toString()
+        val result = db.rawQuery(selectQuery, null)
+        if (result.moveToFirst()) {
+            do {
+                var ingredient = Ingredient(
+                    result.getLong(result.getColumnIndex(BaseColumns._ID)),
+                    result.getString(result.getColumnIndex(TableInfo.TABLE_COLUMN_NAME)),
+                    result.getString(result.getColumnIndex(TableInfo.TABLE_COLUMN_AMOUNT))
+                        .toDouble(),
+                    result.getString(result.getColumnIndex(TableInfo.TABLE_COLUMN_TYPE)),
+                    result.getLong(result.getColumnIndex(TableInfo.TABLE_COLUMN_MEAL_ID))
+                )
+                ingredientList.add(ingredient)
+            } while (result.moveToNext())
+        }
+        result.close()
+        db.close()
+        return ingredientList
+    }
+
+    fun addIngredient(ingredient: Ingredient) {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(TableInfo.TABLE_COLUMN_NAME, ingredient.name)
+        values.put(TableInfo.TABLE_COLUMN_AMOUNT, ingredient.amount.toString())
+        values.put(TableInfo.TABLE_COLUMN_TYPE, ingredient.type)
+        values.put(TableInfo.TABLE_COLUMN_MEAL_ID, ingredient.mealId)
+        db.insert(TableInfo.TABLE_NAME_INGREDIENT, null, values)
+        db.close()
+    }
+
+    fun updateIngredient(ingredient: Ingredient) {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(TableInfo.TABLE_COLUMN_NAME, ingredient.name)
+        values.put(TableInfo.TABLE_COLUMN_AMOUNT, ingredient.amount.toString())
+        values.put(TableInfo.TABLE_COLUMN_TYPE, ingredient.type)
+        values.put(TableInfo.TABLE_COLUMN_MEAL_ID, ingredient.mealId)
+        db.update(
+            TableInfo.TABLE_NAME_INGREDIENT, values, BaseColumns._ID + "=?",
+            arrayOf(ingredient.id.toString())
+        )
+        db.close()
+    }
+
+    fun deleteIngredient(ingredientId: Long): Boolean {
+        val db = this.writableDatabase
+        val success =
+            db.delete(
+                TableInfo.TABLE_NAME_INGREDIENT,
+                BaseColumns._ID + "=?",
+                arrayOf(ingredientId.toString())
+            )
+                .toLong()
+        db.close()
+        return Integer.parseInt("$success") != -1
+    }
+
+    fun getMealPackList(): ArrayList<MealPack> {
+        var mealPackList = ArrayList<MealPack>()
+        val db = readableDatabase
+        val selectQuery =
+            "Select * from ${TableInfo.TABLE_NAME_MEAL_PACK}"
+        val result = db.rawQuery(selectQuery, null)
+        if (result.moveToFirst()) {
+            do {
+                var mealPack = MealPack(
+                    result.getLong(result.getColumnIndex(BaseColumns._ID)),
+                    result.getString(result.getColumnIndex(TableInfo.TABLE_COLUMN_NAME))
+                )
+                mealPackList.add(mealPack)
+            } while (result.moveToNext())
+        }
+        result.close()
+        db.close()
+        return mealPackList
+    }
+
+    fun getMealPack(mealPackName: String): ArrayList<MealPack> {
+        var mealPackList = ArrayList<MealPack>()
+        val db = readableDatabase
+        val selectQuery =
+            "Select * from ${TableInfo.TABLE_NAME_MEAL_PACK} where ${TableInfo.TABLE_COLUMN_NAME} = \"" +
+                    mealPackName + "\""
+        val result = db.rawQuery(selectQuery, null)
+        if (result.moveToFirst()) {
+            do {
+                var mealPack = MealPack(
+                    result.getLong(result.getColumnIndex(BaseColumns._ID)),
+                    result.getString(result.getColumnIndex(TableInfo.TABLE_COLUMN_NAME))
+                )
+                mealPackList.add(mealPack)
+            } while (result.moveToNext())
+        }
+        result.close()
+        db.close()
+        return mealPackList
+    }
+
+    fun addMealPack(name: String) {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(TableInfo.TABLE_COLUMN_NAME, name)
+        db.insert(TableInfo.TABLE_NAME_MEAL_PACK, null, values)
+        db.close()
+    }
+
+    fun updateMealPack(mealPack: MealPack) {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(TableInfo.TABLE_COLUMN_NAME, mealPack.name)
+        db.update(
+            TableInfo.TABLE_NAME_MEAL_PACK, values, BaseColumns._ID + "=?",
+            arrayOf(mealPack.id.toString())
+        )
+        db.close()
+    }
+
+    fun deleteMealPack(mealPackId: Long): Boolean {
+        val db = this.writableDatabase
+        val success =
+            db.delete(
+                TableInfo.TABLE_NAME_MEAL_PACK,
+                BaseColumns._ID + "=?",
+                arrayOf(mealPackId.toString())
+            )
+                .toLong()
+        db.close()
+        return Integer.parseInt("$success") != -1
+    }
+
+    fun getMealsFromPackList(mealPackId: Long): ArrayList<MealFromPack> {
+        var mealsFromPackList = ArrayList<MealFromPack>()
+        val db = readableDatabase
+        val selectQuery =
+            "Select * from ${TableInfo.TABLE_NAME_MEAL_FROM_PACK} where ${TableInfo.TABLE_COLUMN_MEAL_PACK_ID} = " +
+                    mealPackId.toString()
+        val result = db.rawQuery(selectQuery, null)
+        if (result.moveToFirst()) {
+            do {
+                var mealFromPack = MealFromPack(
+                    result.getLong(result.getColumnIndex(BaseColumns._ID)),
+                    result.getLong(result.getColumnIndex(TableInfo.TABLE_COLUMN_MEAL_PACK_ID)),
+                    result.getLong(result.getColumnIndex(TableInfo.TABLE_COLUMN_MEAL_ID))
+                )
+                mealsFromPackList.add(mealFromPack)
+            } while (result.moveToNext())
+        }
+        result.close()
+        db.close()
+        return mealsFromPackList
+    }
+
+    fun addMealFromPack(mealFromPack: MealFromPack) {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(TableInfo.TABLE_COLUMN_MEAL_PACK_ID, mealFromPack.mealPackId)
+        values.put(TableInfo.TABLE_COLUMN_MEAL_ID, mealFromPack.mealId)
+        db.insert(TableInfo.TABLE_NAME_MEAL_FROM_PACK, null, values)
+        db.close()
+    }
+
+    fun updateMealFromPack(mealFromPack: MealFromPack) {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(TableInfo.TABLE_COLUMN_MEAL_PACK_ID, mealFromPack.mealPackId)
+        values.put(TableInfo.TABLE_COLUMN_MEAL_ID, mealFromPack.mealId)
+        db.update(
+            TableInfo.TABLE_NAME_MEAL_FROM_PACK, values, BaseColumns._ID + "=?",
+            arrayOf(mealFromPack.id.toString())
+        )
+        db.close()
+    }
+
+    fun deleteMealFromPack(mealFromPackId: Long): Boolean {
+        val db = this.writableDatabase
+        val success =
+            db.delete(
+                TableInfo.TABLE_NAME_MEAL_FROM_PACK,
+                BaseColumns._ID + "=?",
+                arrayOf(mealFromPackId.toString())
+            )
+                .toLong()
+        db.close()
         return Integer.parseInt("$success") != -1
     }
 }

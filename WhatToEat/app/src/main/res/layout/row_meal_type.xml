@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/row_ingredient_card"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:theme="@style/Theme.MaterialComponents.Light"
+        app:cardBackgroundColor="@color/colorRedLightLight"
+        app:cardCornerRadius="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/colorRedDarkDark"
+        app:strokeWidth="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/row_meal_type_constraint_no_duplicates"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:visibility="gone">
+
+            <ImageView
+                android:id="@+id/row_meal_type_delete"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/ic_delete"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="100">
+
+                <TextView
+                    android:id="@+id/row_meal_type_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_weight="40"
+                    android:fontFamily="@font/dustismo_bold"
+                    android:gravity="center"
+                    android:textColor="@color/colorRedDarkDark"
+                    android:textSize="25dip" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="60"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="5" />
+
+                    <EditText
+                        android:id="@+id/row_meal_type_wanted"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="40"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/dustismo_bold"
+                        android:gravity="center"
+                        android:hint="@string/hint_amount"
+                        android:inputType="number"
+                        android:textColor="@color/colorRedDarkDark"
+                        android:textSize="25dip" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="5"
+                        android:fontFamily="@font/dustismo_bold"
+                        android:gravity="center"
+                        android:maxLength="20"
+                        android:text="/"
+                        android:textColor="@color/colorRedDarkDark"
+                        android:textSize="40dip" />
+
+                    <TextView
+                        android:id="@+id/row_meal_type_max"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="45"
+                        android:fontFamily="@font/dustismo_bold"
+                        android:gravity="center"
+                        android:maxLength="20"
+                        android:textColor="@color/colorRedDarkDark"
+                        android:textSize="25dip" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/row_meal_type_constraint_duplicates"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/row_meal_type_delete2"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/ic_delete"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="100">
+
+                <TextView
+                    android:id="@+id/row_meal_type_name2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_weight="40"
+                    android:fontFamily="@font/dustismo_bold"
+                    android:gravity="center"
+                    android:textColor="@color/colorRedDarkDark"
+                    android:textSize="25dip"
+                    tools:text="Przykładowa nazwa" />
+
+
+                <EditText
+                    android:id="@+id/row_meal_type_wanted2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="40"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/dustismo_bold"
+                    android:gravity="center"
+                    android:hint="@string/hint_amount"
+                    android:inputType="number"
+                    android:textColor="@color/colorRedDarkDark"
+                    android:textFontWeight="40"
+                    android:textSize="25dip" />
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
