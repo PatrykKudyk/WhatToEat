@@ -5,9 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
-import com.partos.whattoeat.models.Ingredient
-import com.partos.whattoeat.models.Meal
-import com.partos.whattoeat.models.MealType
+import com.partos.whattoeat.models.*
 
 object TableInfo : BaseColumns {
     const val DATABASE_NAME = "WhatToEat"
@@ -19,6 +17,9 @@ object TableInfo : BaseColumns {
     const val TABLE_COLUMN_TYPE = "type"
     const val TABLE_COLUMN_AMOUNT = "amount"
     const val TABLE_COLUMN_MEAL_ID = "mealId"
+    const val TABLE_NAME_MEAL_PACK = "MealPack"
+    const val TABLE_NAME_MEAL_FROM_PACK = "MealFromPack"
+    const val TABLE_COLUMN_MEAL_PACK_ID = "mealPackId"
 }
 
 object BasicCommand {
@@ -41,12 +42,26 @@ object BasicCommand {
                 "${TableInfo.TABLE_COLUMN_TYPE} TEXT NOT NULL," +
                 "${TableInfo.TABLE_COLUMN_MEAL_ID} INTEGER NOT NULL)"
 
+    const val SQL_CREATE_TABLE_MEAL_PACK =
+        "CREATE TABLE ${TableInfo.TABLE_NAME_MEAL_PACK} (" +
+                "${BaseColumns._ID} INTEGER PRIMARY KEY," +
+                "${TableInfo.TABLE_COLUMN_NAME} TEXT NOT NULL)"
+
+    const val SQL_CREATE_TABLE_MEAL_FROM_PACK =
+        "CREATE TABLE ${TableInfo.TABLE_NAME_MEAL_FROM_PACK} (" +
+                "${BaseColumns._ID} INTEGER PRIMARY KEY," +
+                "${TableInfo.TABLE_COLUMN_MEAL_PACK_ID} INTEGER NOT NULL," +
+                "${TableInfo.TABLE_COLUMN_MEAL_ID} INTEGER NOT NULL)"
+
+
     const val SQL_DELETE_TABLE_MEAL_TYPE =
         "DROP TABLE IF EXISTS ${TableInfo.TABLE_NAME_MEAL_TYPE}"
     const val SQL_DELETE_TABLE_MEAL = "DROP TABLE IF EXISTS ${TableInfo.TABLE_NAME_MEAL}"
     const val SQL_DELETE_TABLE_INGREDIENT =
         "DROP TABLE IF EXISTS ${TableInfo.TABLE_NAME_INGREDIENT}"
-
+    const val SQL_DELETE_TABLE_MEAL_PACK = "DROP TABLE IF EXISTS ${TableInfo.TABLE_NAME_MEAL_PACK}"
+    const val SQL_DELETE_TABLE_MEAL_FROM_PACK =
+        "DROP TABLE IF EXISTS ${TableInfo.TABLE_NAME_MEAL_FROM_PACK}"
 }
 
 class DataBaseHelper(context: Context) :
@@ -55,12 +70,16 @@ class DataBaseHelper(context: Context) :
         db?.execSQL(BasicCommand.SQL_CREATE_TABLE_MEAL_TYPE)
         db?.execSQL(BasicCommand.SQL_CREATE_TABLE_MEAL)
         db?.execSQL(BasicCommand.SQL_CREATE_TABLE_INGREDIENT)
+        db?.execSQL(BasicCommand.SQL_CREATE_TABLE_MEAL_PACK)
+        db?.execSQL(BasicCommand.SQL_CREATE_TABLE_MEAL_FROM_PACK)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
         db?.execSQL(BasicCommand.SQL_DELETE_TABLE_MEAL_TYPE)
         db?.execSQL(BasicCommand.SQL_DELETE_TABLE_MEAL)
         db?.execSQL(BasicCommand.SQL_DELETE_TABLE_INGREDIENT)
+        db?.execSQL(BasicCommand.SQL_DELETE_TABLE_MEAL_PACK)
+        db?.execSQL(BasicCommand.SQL_DELETE_TABLE_MEAL_FROM_PACK)
         onCreate(db)
     }
 
@@ -139,8 +158,9 @@ class DataBaseHelper(context: Context) :
     fun getMealList(typeId: Long): ArrayList<Meal> {
         var mealList = ArrayList<Meal>()
         val db = readableDatabase
-        val selectQuery = "Select * from ${TableInfo.TABLE_NAME_MEAL} where ${TableInfo.TABLE_COLUMN_TYPE_ID} = " +
-                typeId.toString()
+        val selectQuery =
+            "Select * from ${TableInfo.TABLE_NAME_MEAL} where ${TableInfo.TABLE_COLUMN_TYPE_ID} = " +
+                    typeId.toString()
         val result = db.rawQuery(selectQuery, null)
         if (result.moveToFirst()) {
             do {
@@ -160,8 +180,9 @@ class DataBaseHelper(context: Context) :
     fun getMealList(name: String): ArrayList<Meal> {
         var mealList = ArrayList<Meal>()
         val db = readableDatabase
-        val selectQuery = "Select * from ${TableInfo.TABLE_NAME_MEAL} where ${TableInfo.TABLE_COLUMN_NAME} = \"" +
-                name + "\""
+        val selectQuery =
+            "Select * from ${TableInfo.TABLE_NAME_MEAL} where ${TableInfo.TABLE_COLUMN_NAME} = \"" +
+                    name + "\""
         val result = db.rawQuery(selectQuery, null)
         if (result.moveToFirst()) {
             do {
@@ -236,15 +257,17 @@ class DataBaseHelper(context: Context) :
     fun getIngredientList(mealId: Long): ArrayList<Ingredient> {
         var ingredientList = ArrayList<Ingredient>()
         val db = readableDatabase
-        val selectQuery = "Select * from ${TableInfo.TABLE_NAME_INGREDIENT} where ${TableInfo.TABLE_COLUMN_MEAL_ID} = " +
-                mealId.toString()
+        val selectQuery =
+            "Select * from ${TableInfo.TABLE_NAME_INGREDIENT} where ${TableInfo.TABLE_COLUMN_MEAL_ID} = " +
+                    mealId.toString()
         val result = db.rawQuery(selectQuery, null)
         if (result.moveToFirst()) {
             do {
                 var ingredient = Ingredient(
                     result.getLong(result.getColumnIndex(BaseColumns._ID)),
                     result.getString(result.getColumnIndex(TableInfo.TABLE_COLUMN_NAME)),
-                    result.getString(result.getColumnIndex(TableInfo.TABLE_COLUMN_AMOUNT)).toDouble(),
+                    result.getString(result.getColumnIndex(TableInfo.TABLE_COLUMN_AMOUNT))
+                        .toDouble(),
                     result.getString(result.getColumnIndex(TableInfo.TABLE_COLUMN_TYPE)),
                     result.getLong(result.getColumnIndex(TableInfo.TABLE_COLUMN_MEAL_ID))
                 )
@@ -288,6 +311,114 @@ class DataBaseHelper(context: Context) :
                 TableInfo.TABLE_NAME_INGREDIENT,
                 BaseColumns._ID + "=?",
                 arrayOf(ingredientId.toString())
+            )
+                .toLong()
+        db.close()
+        return Integer.parseInt("$success") != -1
+    }
+
+    fun getMealPackList(): ArrayList<MealPack> {
+        var mealPackList = ArrayList<MealPack>()
+        val db = readableDatabase
+        val selectQuery =
+            "Select * from ${TableInfo.TABLE_NAME_MEAL_PACK}"
+        val result = db.rawQuery(selectQuery, null)
+        if (result.moveToFirst()) {
+            do {
+                var mealPack = MealPack(
+                    result.getLong(result.getColumnIndex(BaseColumns._ID)),
+                    result.getString(result.getColumnIndex(TableInfo.TABLE_COLUMN_NAME))
+                )
+                mealPackList.add(mealPack)
+            } while (result.moveToNext())
+        }
+        result.close()
+        db.close()
+        return mealPackList
+    }
+
+    fun addMealPack(name: String) {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(TableInfo.TABLE_COLUMN_NAME, name)
+        db.insert(TableInfo.TABLE_NAME_MEAL_PACK, null, values)
+        db.close()
+    }
+
+    fun updateMealPack(mealPack: MealPack) {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(TableInfo.TABLE_COLUMN_NAME, mealPack.name)
+        db.update(
+            TableInfo.TABLE_NAME_MEAL_PACK, values, BaseColumns._ID + "=?",
+            arrayOf(mealPack.id.toString())
+        )
+        db.close()
+    }
+
+    fun deleteMealPack(mealPackId: Long): Boolean {
+        val db = this.writableDatabase
+        val success =
+            db.delete(
+                TableInfo.TABLE_NAME_MEAL_PACK,
+                BaseColumns._ID + "=?",
+                arrayOf(mealPackId.toString())
+            )
+                .toLong()
+        db.close()
+        return Integer.parseInt("$success") != -1
+    }
+
+    fun getMealsFromPackList(mealPackId: Long): ArrayList<MealFromPack> {
+        var mealsFromPackList = ArrayList<MealFromPack>()
+        val db = readableDatabase
+        val selectQuery =
+            "Select * from ${TableInfo.TABLE_NAME_MEAL_FROM_PACK} where ${TableInfo.TABLE_COLUMN_MEAL_PACK_ID} = " +
+                    mealPackId.toString()
+        val result = db.rawQuery(selectQuery, null)
+        if (result.moveToFirst()) {
+            do {
+                var mealFromPack = MealFromPack(
+                    result.getLong(result.getColumnIndex(BaseColumns._ID)),
+                    result.getLong(result.getColumnIndex(TableInfo.TABLE_NAME_MEAL_PACK)),
+                    result.getLong(result.getColumnIndex(TableInfo.TABLE_COLUMN_MEAL_ID))
+                )
+                mealsFromPackList.add(mealFromPack)
+            } while (result.moveToNext())
+        }
+        result.close()
+        db.close()
+        return mealsFromPackList
+    }
+
+    fun addMealFromPack(mealFromPack: MealFromPack) {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(TableInfo.TABLE_COLUMN_MEAL_PACK_ID, mealFromPack.mealPackId)
+        values.put(TableInfo.TABLE_COLUMN_MEAL_ID, mealFromPack.mealId)
+        db.insert(TableInfo.TABLE_NAME_MEAL_FROM_PACK, null, values)
+        db.close()
+    }
+
+    fun updateMealFromPack(mealFromPack: MealFromPack) {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(TableInfo.TABLE_COLUMN_MEAL_PACK_ID, mealFromPack.mealPackId)
+        values.put(TableInfo.TABLE_COLUMN_MEAL_ID, mealFromPack.mealId)
+        db.update(
+            TableInfo.TABLE_NAME_MEAL_FROM_PACK, values, BaseColumns._ID + "=?",
+            arrayOf(mealFromPack.id.toString())
+        )
+        db.close()
+    }
+
+    fun deleteMealFromPack(mealFromPackId: Long): Boolean {
+        val db = this.writableDatabase
+        val success =
+            db.delete(
+                TableInfo.TABLE_NAME_MEAL_FROM_PACK,
+                BaseColumns._ID + "=?",
+                arrayOf(mealFromPackId.toString())
             )
                 .toLong()
         db.close()
