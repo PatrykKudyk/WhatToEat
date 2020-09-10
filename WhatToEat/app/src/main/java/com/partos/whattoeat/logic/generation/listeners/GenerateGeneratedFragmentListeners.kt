@@ -79,7 +79,7 @@ class GenerateGeneratedFragmentListeners {
                 now.get(Calendar.DAY_OF_MONTH) + " " + now.get(Calendar.HOUR_OF_DAY) + ":" +
                 now.get(Calendar.MINUTE) + ":" + now.get(Calendar.SECOND)
         db.addMealPack(name)
-        val mealPack = db.getMealPack(name)
+        val mealPack = db.getMealPack(name)[0]
         for(meal in mealsList) {
             db.addMealFromPack(
                 MealFromPack(

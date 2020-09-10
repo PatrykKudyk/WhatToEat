@@ -337,7 +337,7 @@ class DataBaseHelper(context: Context) :
         return mealPackList
     }
 
-    fun getMealPack(mealPackName: String): MealPack {
+    fun getMealPack(mealPackName: String): ArrayList<MealPack> {
         var mealPackList = ArrayList<MealPack>()
         val db = readableDatabase
         val selectQuery =
@@ -355,7 +355,7 @@ class DataBaseHelper(context: Context) :
         }
         result.close()
         db.close()
-        return mealPackList[0]
+        return mealPackList
     }
 
     fun addMealPack(name: String) {
@@ -401,7 +401,7 @@ class DataBaseHelper(context: Context) :
             do {
                 var mealFromPack = MealFromPack(
                     result.getLong(result.getColumnIndex(BaseColumns._ID)),
-                    result.getLong(result.getColumnIndex(TableInfo.TABLE_NAME_MEAL_PACK)),
+                    result.getLong(result.getColumnIndex(TableInfo.TABLE_COLUMN_MEAL_PACK_ID)),
                     result.getLong(result.getColumnIndex(TableInfo.TABLE_COLUMN_MEAL_ID))
                 )
                 mealsFromPackList.add(mealFromPack)

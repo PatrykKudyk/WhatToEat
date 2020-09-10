@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.partos.whattoeat.R
 import com.partos.whattoeat.adapters.MarginItemDecoration
+import com.partos.whattoeat.adapters.recycler.MealPacksRecyclerViewAdapter
 import com.partos.whattoeat.db.DataBaseHelper
 
 class GenerateSavedListFragmentLogic {
@@ -20,6 +21,8 @@ class GenerateSavedListFragmentLogic {
         db = DataBaseHelper(rootView.context)
         if (isSomethingSaved()) {
             attachRecyclerView(rootView.context)
+            recyclerView.visibility = View.VISIBLE
+            noneSavedTextView.visibility = View.GONE
         } else {
             noneSavedTextView.visibility = View.VISIBLE
             recyclerView.visibility = View.GONE
@@ -30,12 +33,11 @@ class GenerateSavedListFragmentLogic {
         val mLayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = mLayoutManager
         recyclerView.addItemDecoration(MarginItemDecoration(12))
-        val db = DataBaseHelper(context)
-        recyclerView.adapter
+        recyclerView.adapter = MealPacksRecyclerViewAdapter(db.getMealPackList())
     }
 
     private fun isSomethingSaved(): Boolean {
-        return false
+        return db.getMealPackList().size != 0
     }
 
     private fun attachViews(rootView: View) {
