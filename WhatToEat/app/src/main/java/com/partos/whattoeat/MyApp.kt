@@ -11,5 +11,6 @@ class MyApp : Application() {
         var mealName = ""
         var typesList = ArrayList<MealTypeGeneration>()
         var allowDuplicates = false
+        var isSaved = false
     }
 }

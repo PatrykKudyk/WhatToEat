@@ -45,9 +45,17 @@ class GenerateGeneratedFragmentLogic {
         } else {
             for(mealType in MyApp.typesList){
                 val allMeals = db.getMealList(mealType.id)
+                val chosenList = ArrayList<Boolean>()
+                for (i in 0 until allMeals.size) {
+                    chosenList.add(false)
+                }
                 for (i in 0 until mealType.wanted) {
-                    val random = Random.nextInt(0, allMeals.size)
+                    var random: Int
+                    do {
+                        random = Random.nextInt(0, allMeals.size)
+                    } while (chosenList[random])
                     mealList.add(allMeals[random])
+                    chosenList[random] = true
                 }
             }
         }
