@@ -37,5 +37,7 @@
     <string name="toast_meal_type_number_incorrect1">Ilość podana w</string>
     <string name="toast_meal_type_number_incorrect2">jest niepoprawna</string>
     <string name="toast_no_meal_types">Nie podano żadnych typów posiłków</string>
+    <string name="save_meals">Zapisz paczkę posiłków</string>
+    <string name="get_ingredients_list">Zobacz listę składników</string>
 
 </resources>

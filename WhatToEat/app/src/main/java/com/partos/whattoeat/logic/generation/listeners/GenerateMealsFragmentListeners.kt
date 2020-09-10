@@ -10,6 +10,7 @@ import com.partos.whattoeat.MyApp
 import com.partos.whattoeat.R
 import com.partos.whattoeat.adapters.recycler.GenerateMealTypesRecyclerViewAdapter
 import com.partos.whattoeat.fragments.generation.GenerateChooseTypeFragment
+import com.partos.whattoeat.fragments.generation.GenerateGeneratedFragment
 import com.partos.whattoeat.logic.ToastHelper
 
 class GenerateMealsFragmentListeners {
@@ -58,7 +59,16 @@ class GenerateMealsFragmentListeners {
 
         generateButton.setOnClickListener {
             if (areTypesCorrect(context)) {
-
+                val fragment = GenerateGeneratedFragment.newInstance(yes)
+                fragmentManager
+                    .beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.enter_right_to_left, R.anim.exit_left_to_right,
+                        R.anim.enter_left_to_right, R.anim.exit_right_to_left
+                    )
+                    .replace(R.id.main_frame_layout, fragment)
+                    .addToBackStack(GenerateGeneratedFragment.toString())
+                    .commit()
             }
         }
     }
