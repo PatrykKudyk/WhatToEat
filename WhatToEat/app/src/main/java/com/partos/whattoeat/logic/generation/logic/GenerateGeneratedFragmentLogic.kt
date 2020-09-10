@@ -36,6 +36,8 @@ class GenerateGeneratedFragmentLogic {
     private fun generateIngredientList(context: Context) {
         val db = DataBaseHelper(context)
         var ingredients: ArrayList<Ingredient>
+        MyApp.ingredientsList.clear()
+        MyApp.ingredientsMap.clear()
         for (meal in mealList) {
             ingredients = db.getIngredientList(meal.id)
             for (ingredient in ingredients) {
@@ -56,7 +58,7 @@ class GenerateGeneratedFragmentLogic {
             } else {
                 val amountList = ArrayList<Amount>()
                 amountList.add(Amount(ingredient.amount, ingredient.type))
-                ingredientsMap.put(ingredient.name, amountList)
+                ingredientsMap.put(name, amountList)
             }
         }
         MyApp.ingredientsMap = ingredientsMap
