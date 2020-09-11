@@ -27,23 +27,21 @@ class GenerateGeneratedFragmentListeners {
 
     fun initListeners(
         rootView: View,
-        fragmentManager: FragmentManager,
-        mealsList: ArrayList<Meal>
+        fragmentManager: FragmentManager
     ) {
         attachViews(rootView)
-        attachListeners(fragmentManager, mealsList, rootView.context)
+        attachListeners(fragmentManager, rootView.context)
     }
 
     private fun attachListeners(
         fragmentManager: FragmentManager,
-        mealsList: ArrayList<Meal>,
         context: Context
     ) {
         saveButton.setOnClickListener {
             saveLinear.visibility = View.GONE
             noSaveLinear.visibility = View.VISIBLE
             MyApp.isSaved = true
-            saveMeals(mealsList,context)
+            saveMeals(MyApp.mealList ,context)
             ToastHelper().successfullySaved(context)
         }
         ingredientsButton.setOnClickListener {
