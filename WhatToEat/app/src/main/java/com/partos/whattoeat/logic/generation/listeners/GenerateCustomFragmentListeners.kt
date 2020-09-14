@@ -44,7 +44,7 @@ class GenerateCustomFragmentListeners {
 
         saveButton.setOnClickListener {
             if (MyApp.mealList.size != 0) {
-                saveMeals(MyApp.mealList ,context)
+                saveMeals(MyApp.mealList, context)
                 ToastHelper().successfullySaved(context)
             } else {
                 ToastHelper().noMealsGiven(context)
@@ -89,20 +89,21 @@ class GenerateCustomFragmentListeners {
         for (ingredient in MyApp.ingredientsList) {
             val name = ingredient.name.trim().toLowerCase()
             if (ingredientsMap.containsKey(name)) {
+                val ingredientsMapEntity = ingredientsMap[name]
                 val type = ingredient.type.trim().toLowerCase()
                 val amounts: HashMap<String, Double>
-                if (ingredientsMap.containsKey(type)) {
+                if (ingredientsMapEntity?.containsKey(type)!!) {
                     amounts = ingredientsMap.getValue(name)
-                    amounts[type] = amounts.get(type)?.plus(ingredient.amount) as Double
+                    amounts[type] = amounts[type]?.plus(ingredient.amount) as Double
                 } else {
                     amounts = HashMap()
-                    amounts.put(type, ingredient.amount)
+                    amounts[type] = ingredient.amount
                 }
-                ingredientsMap.put(name, amounts)
+                ingredientsMap[name] = amounts
             } else {
                 val amounts = HashMap<String, Double>()
-                amounts.put(ingredient.type, ingredient.amount)
-                ingredientsMap.put(name, amounts)
+                amounts[ingredient.type] = ingredient.amount
+                ingredientsMap[name] = amounts
             }
         }
         MyApp.ingredientsMap = ingredientsMap
@@ -111,12 +112,13 @@ class GenerateCustomFragmentListeners {
     private fun saveMeals(mealsList: ArrayList<Meal>, context: Context) {
         val db = DataBaseHelper(context)
         val now = Calendar.getInstance()
-        val name = now.get(Calendar.YEAR).toString() + "/" + (now.get(Calendar.MONTH) + 1).toString() + "/" +
+        val name = now.get(Calendar.YEAR)
+            .toString() + "/" + (now.get(Calendar.MONTH) + 1).toString() + "/" +
                 now.get(Calendar.DAY_OF_MONTH) + " " + now.get(Calendar.HOUR_OF_DAY) + ":" +
                 now.get(Calendar.MINUTE) + ":" + now.get(Calendar.SECOND)
         db.addMealPack(name)
         val mealPack = db.getMealPack(name)[0]
-        for(meal in mealsList) {
+        for (meal in mealsList) {
             db.addMealFromPack(
                 MealFromPack(
                     0,
