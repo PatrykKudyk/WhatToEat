@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.partos.whattoeat.MyApp
 import com.partos.whattoeat.R
 import com.partos.whattoeat.adapters.MarginItemDecoration
 import com.partos.whattoeat.adapters.recycler.IngredientsRecyclerViewAdapter
@@ -25,7 +26,7 @@ class AddMealFragmentLogic {
         val mLayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = mLayoutManager
         recyclerView.addItemDecoration(MarginItemDecoration(12))
-        recyclerView.adapter = IngredientsRecyclerViewAdapter()
+        recyclerView.adapter = IngredientsRecyclerViewAdapter(MyApp.ingredientsList)
     }
 
     private fun attachViews(rootView: View) {

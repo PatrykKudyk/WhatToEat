@@ -37,7 +37,9 @@ class GenerateMealsFromPackFragmentLogic {
         val meals = db.getMealsFromPackList(mealPackId)
         for (meal in meals) {
             val mealFinal = db.getMeal(meal.mealId)
-            mealList.add(mealFinal[0])
+            if (mealFinal.size != 0) {
+                mealList.add(mealFinal[0])
+            }
         }
         return mealList
     }

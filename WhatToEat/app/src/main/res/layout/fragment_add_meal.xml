@@ -6,109 +6,130 @@
     android:layout_height="match_parent"
     tools:context=".fragments.meal.AddMealFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBackground">
-
-        <EditText
-            android:id="@+id/add_meal_edit_text_name"
-            android:layout_width="match_parent"
-            android:background="@android:color/transparent"
-            android:layout_height="0dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:fontFamily="@font/dustismo"
-            android:gravity="center"
-            android:hint="@string/hint_name_meal"
-            android:textSize="24dip"
-            android:maxLength="30"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.04"
-            app:layout_constraintTop_toBottomOf="@id/add_meal_edit_text_name" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/add_meal_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.73"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view" />
-
+        android:fillViewport="true"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:weightSum="100"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.11"
-            android:layout_marginBottom="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:gravity="center|top"
+            android:orientation="vertical">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/add_meal_add"
-                android:layout_width="0dp"
-                android:layout_weight="48"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:theme="@style/Theme.MaterialComponents.Light"
-                app:cardBackgroundColor="@color/colorRed"
-                app:cardCornerRadius="6dp">
+                android:background="@color/colorBackground">
 
-                <TextView
+                <EditText
+                    android:id="@+id/add_meal_edit_text_name"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/dustismo_bold"
+                    android:background="@android:color/transparent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:fontFamily="@font/dustismo"
                     android:gravity="center"
-                    android:text="@string/add_ingredient"
-                    android:textColor="@color/colorBackground"
-                    android:textSize="20dip" />
+                    android:hint="@string/hint_name_meal"
+                    android:textSize="24dip"
+                    android:maxLength="30"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"/>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/add_meal_save"
-                android:layout_width="0dp"
-                android:layout_weight="48"
-                android:layout_height="match_parent"
-                android:theme="@style/Theme.MaterialComponents.Light"
-                app:cardBackgroundColor="@color/colorRedMedium"
-                app:cardCornerRadius="6dp">
-
-                <TextView
+                <View
+                    android:id="@+id/view"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/dustismo_bold"
-                    android:gravity="center"
-                    android:text="@string/save_meal"
-                    android:textColor="@color/colorBackground"
-                    android:textSize="20dip" />
+                    android:layout_height="0dp"
+                    app:layout_constraintHeight_percent="0.04"
+                    app:layout_constraintTop_toBottomOf="@id/add_meal_edit_text_name" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/add_meal_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.73"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view" />
 
 
-            </com.google.android.material.card.MaterialCardView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    android:weightSum="100"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.11"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/add_meal_add"
+                        android:layout_width="0dp"
+                        android:layout_weight="48"
+                        android:layout_height="match_parent"
+                        android:theme="@style/Theme.MaterialComponents.Light"
+                        app:cardBackgroundColor="@color/colorRed"
+                        app:cardCornerRadius="6dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/dustismo_bold"
+                            android:gravity="center"
+                            android:text="@string/add_ingredient"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="20dip" />
+
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"/>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/add_meal_save"
+                        android:layout_width="0dp"
+                        android:layout_weight="48"
+                        android:layout_height="match_parent"
+                        android:theme="@style/Theme.MaterialComponents.Light"
+                        app:cardBackgroundColor="@color/colorRedMedium"
+                        app:cardCornerRadius="6dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/dustismo_bold"
+                            android:gravity="center"
+                            android:text="@string/save_meal"
+                            android:textColor="@color/colorBackground"
+                            android:textSize="20dip" />
+
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+
 
 </FrameLayout>

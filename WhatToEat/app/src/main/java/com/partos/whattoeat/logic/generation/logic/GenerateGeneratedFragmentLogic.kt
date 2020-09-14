@@ -20,17 +20,15 @@ import kotlin.random.Random
 class GenerateGeneratedFragmentLogic {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var mealList: ArrayList<Meal>
     private lateinit var saveLayout: LinearLayout
     private lateinit var noSaveLayout: LinearLayout
 
     fun initFragment(rootView: View, fragmentManager: FragmentManager, allowDuplicates: Boolean) {
         attachViews(rootView)
-        generateList(allowDuplicates, rootView.context)
         attachRecyclerView(rootView.context)
         setLayout()
         generateIngredientList(rootView.context)
-        GenerateGeneratedFragmentListeners().initListeners(rootView, fragmentManager, mealList)
+        GenerateGeneratedFragmentListeners().initListeners(rootView, fragmentManager)
     }
 
     private fun generateIngredientList(context: Context) {
@@ -38,7 +36,7 @@ class GenerateGeneratedFragmentLogic {
         var ingredients: ArrayList<Ingredient>
         MyApp.ingredientsList.clear()
         MyApp.ingredientsMap.clear()
-        for (meal in mealList) {
+        for (meal in MyApp.mealList) {
             ingredients = db.getIngredientList(meal.id)
             for (ingredient in ingredients) {
                 MyApp.ingredientsList.add(ingredient)
@@ -78,38 +76,9 @@ class GenerateGeneratedFragmentLogic {
         val mLayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = mLayoutManager
         recyclerView.addItemDecoration(MarginItemDecoration(12))
-        recyclerView.adapter = MealsStaticRecyclerViewAdapter(mealList)
+        recyclerView.adapter = MealsStaticRecyclerViewAdapter(MyApp.mealList)
     }
 
-    private fun generateList(allowDuplicates: Boolean, context: Context) {
-        mealList = ArrayList()
-        val db = DataBaseHelper(context)
-        if (allowDuplicates) {
-            for(mealType in MyApp.typesList){
-                val allMeals = db.getMealList(mealType.id)
-                for (i in 0 until mealType.wanted) {
-                    var random = Random.nextInt(0, allMeals.size)
-                    mealList.add(allMeals[random])
-                }
-            }
-        } else {
-            for(mealType in MyApp.typesList){
-                val allMeals = db.getMealList(mealType.id)
-                val chosenList = ArrayList<Boolean>()
-                for (i in 0 until allMeals.size) {
-                    chosenList.add(false)
-                }
-                for (i in 0 until mealType.wanted) {
-                    var random: Int
-                    do {
-                        random = Random.nextInt(0, allMeals.size)
-                    } while (chosenList[random])
-                    mealList.add(allMeals[random])
-                    chosenList[random] = true
-                }
-            }
-        }
-    }
 
     private fun attachViews(rootView: View) {
         recyclerView = rootView.findViewById(R.id.generate_generated_recycler_view)
