@@ -10,7 +10,7 @@ class MyApp : Application() {
         var typesList = ArrayList<MealTypeGeneration>()
         var allowDuplicates = false
         var isSaved = false
-        var ingredientsMap = HashMap<String, ArrayList<Amount>>()
+        var ingredientsMap = HashMap<String, HashMap<String, Double>>()
         var mealList = ArrayList<Meal>()
     }
 }

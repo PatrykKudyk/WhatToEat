@@ -28,13 +28,22 @@ class GenerateIngredientsFragmentLogic {
             IngredientsMapRecyclerViewAdapter(generateIngredientsExtended(MyApp.ingredientsMap))
     }
 
-    private fun generateIngredientsExtended(ingredientsMap: HashMap<String, ArrayList<Amount>>): ArrayList<IngredientExtended> {
+    private fun generateIngredientsExtended(ingredientsMap: HashMap<String, HashMap<String, Double>>): ArrayList<IngredientExtended> {
         val ingredientsList = ArrayList<IngredientExtended>()
         for (ingredient in ingredientsMap) {
+            val amountList = ArrayList<Amount>()
+            for (ingredientMapped in ingredient.value) {
+                amountList.add(
+                    Amount(
+                        ingredientMapped.value,
+                        ingredientMapped.key
+                    )
+                )
+            }
             ingredientsList.add(
                 IngredientExtended(
                     ingredient.key,
-                    ingredient.value
+                    amountList
                 )
             )
         }
