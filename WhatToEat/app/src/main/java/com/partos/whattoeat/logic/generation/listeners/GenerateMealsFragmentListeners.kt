@@ -97,7 +97,7 @@ class GenerateMealsFragmentListeners {
                 }
             }
         } else {
-            ToastHelper().noMealsGiven(context)
+            ToastHelper().noMealTypesGiven(context)
             return false
         }
         return true
