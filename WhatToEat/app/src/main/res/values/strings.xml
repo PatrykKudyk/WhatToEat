@@ -37,6 +37,7 @@
     <string name="toast_meal_type_number_incorrect1">The amount given in</string>
     <string name="toast_meal_type_number_incorrect2">is incorrect</string>
     <string name="toast_no_meal_types">There are no meal types given</string>
+    <string name="toast_no_meals">There are no meals given</string>
     <string name="save_meals">Save meals pack</string>
     <string name="get_ingredients_list">Get ingredients list</string>
     <string name="toast_successfully_saved">Successfully saved</string>
