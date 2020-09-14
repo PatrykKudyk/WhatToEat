@@ -50,20 +50,21 @@ class GenerateGeneratedFragmentLogic {
         for (ingredient in MyApp.ingredientsList) {
             val name = ingredient.name.trim().toLowerCase()
             if (ingredientsMap.containsKey(name)) {
+                val ingredientsMapEntity = ingredientsMap[name]
                 val type = ingredient.type.trim().toLowerCase()
                 val amounts: HashMap<String, Double>
-                if (ingredientsMap.containsKey(type)) {
+                if (ingredientsMapEntity?.containsKey(type)!!) {
                     amounts = ingredientsMap.getValue(name)
-                    amounts[type] = amounts.get(type)?.plus(ingredient.amount) as Double
+                    amounts[type] = amounts[type]?.plus(ingredient.amount) as Double
                 } else {
                     amounts = HashMap()
-                    amounts.put(type, ingredient.amount)
+                    amounts[type] = ingredient.amount
                 }
-                ingredientsMap.put(name, amounts)
+                ingredientsMap[name] = amounts
             } else {
                 val amounts = HashMap<String, Double>()
-                amounts.put(ingredient.type, ingredient.amount)
-                ingredientsMap.put(name, amounts)
+                amounts[ingredient.type] = ingredient.amount
+                ingredientsMap[name] = amounts
             }
         }
         MyApp.ingredientsMap = ingredientsMap

@@ -1,10 +1,11 @@
 package com.partos.whattoeat.fragments.generation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.partos.whattoeat.R
 import com.partos.whattoeat.logic.generation.logic.GenerateMealsFromPackFragmentLogic
 
@@ -37,7 +38,12 @@ class GenerateMealsFromPackFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_generate_meals_from_pack, container, false)
-        GenerateMealsFromPackFragmentLogic().initFragment(view, mealPackId as Long, mealPackName as String)
+        GenerateMealsFromPackFragmentLogic().initFragment(
+            view,
+            mealPackId as Long,
+            mealPackName as String,
+            fragmentManager as FragmentManager
+        )
         return view
     }
 
