@@ -6,69 +6,85 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.meal.MealShowFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBackground">
+        android:fillViewport="true"
+        tools:ignore="MissingConstraints">
 
-        <TextView
-            android:id="@+id/show_meal_name"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:fontFamily="@font/dustismo_bold"
-            android:gravity="center"
-            android:textSize="24dip"
-            tools:text="Przykładowa nazwa"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:gravity="center|top"
+            android:orientation="vertical">
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.04"
-            app:layout_constraintTop_toBottomOf="@id/show_meal_name" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/show_meal_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.73"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/show_meal_button_add_ingredient"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.11"
-            android:theme="@style/Theme.MaterialComponents.Light"
-            app:cardBackgroundColor="@color/colorRed"
-            app:cardCornerRadius="6dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp">
-
-            <TextView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/add_ingredient"
-                android:gravity="center"
-                android:textColor="@color/colorBackground"
-                android:textSize="30dip"
-                android:fontFamily="@font/dustismo_bold"/>
+                android:background="@color/colorBackground">
+
+                <TextView
+                    android:id="@+id/show_meal_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:fontFamily="@font/dustismo_bold"
+                    android:gravity="center"
+                    android:textSize="24dip"
+                    tools:text="Przykładowa nazwa"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintHeight_percent="0.04"
+                    app:layout_constraintTop_toBottomOf="@id/show_meal_name" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/show_meal_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.73"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/show_meal_button_add_ingredient"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintHeight_percent="0.11"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:cardBackgroundColor="@color/colorRed"
+                    app:cardCornerRadius="6dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/add_ingredient"
+                        android:gravity="center"
+                        android:textColor="@color/colorBackground"
+                        android:textSize="30dip"
+                        android:fontFamily="@font/dustismo_bold"/>
 
 
-        </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
+        </LinearLayout>
+
+    </ScrollView>
 </FrameLayout>
