@@ -1,4 +1,4 @@
-package com.partos.whattoeat.logic.meal
+package com.partos.whattoeat.logic.rest
 
 import android.view.View
 import androidx.fragment.app.FragmentManager
