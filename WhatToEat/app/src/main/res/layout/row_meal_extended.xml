@@ -36,14 +36,24 @@
                 tools:text="Przykładowa nazwa" />
 
             <ImageView
-                android:id="@+id/row_meal_extended_delete"
+                android:id="@+id/row_meal_extended_edit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/ic_delete"
+                android:src="@drawable/ic_edit"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/row_meal_extended_delete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintTop_toBottomOf="@id/row_meal_extended_edit"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_delete"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -112,6 +122,37 @@
                     android:textSize="22dip" />
 
             </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/row_meal_extended_constraint_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/row_meal_extended_edit_name"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="50dp"
+                android:fontFamily="@font/dustismo_bold"
+                android:gravity="center"
+                android:textColor="@color/colorBackground"
+                android:textSize="25dip"
+                android:hint="@string/hint_name"/>
+
+            <ImageView
+                android:id="@+id/row_meal_extended_edit_save"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
