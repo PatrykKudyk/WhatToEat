@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
 
     <com.google.android.material.card.MaterialCardView
@@ -23,11 +23,12 @@
             android:id="@+id/row_meal_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:text="Przykładowa nazwa"
+            android:fontFamily="@font/dustismo_bold"
             android:gravity="center"
-            android:textSize="25dip"
             android:textColor="@color/colorBackground"
-            android:fontFamily="@font/dustismo_bold"/>
+            android:textSize="25dip"
+            tools:text="Przykładowa nazwa" />
+
 
     </com.google.android.material.card.MaterialCardView>
 
