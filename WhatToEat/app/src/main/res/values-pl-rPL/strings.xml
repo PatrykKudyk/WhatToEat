@@ -42,5 +42,6 @@
     <string name="toast_successfully_saved">Pomyślnie zapisano</string>
     <string name="hint_meal_pack_name">Nazwa paczki</string>
     <string name="delete_question">Jesteś pewny?</string>
+    <string name="hint_name">Nazwa</string>
 
 </resources>

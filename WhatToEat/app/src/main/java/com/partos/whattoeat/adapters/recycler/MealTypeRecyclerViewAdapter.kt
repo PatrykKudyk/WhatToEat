@@ -8,6 +8,7 @@ import com.partos.whattoeat.R
 import com.partos.whattoeat.activities.MainActivity
 import com.partos.whattoeat.db.DataBaseHelper
 import com.partos.whattoeat.fragments.meal.AllMealsCategoryFragment
+import com.partos.whattoeat.logic.ToastHelper
 import com.partos.whattoeat.models.MealType
 import kotlinx.android.synthetic.main.row_meal_extended.view.*
 
@@ -24,6 +25,14 @@ class MealTypeRecyclerViewAdapter(val mealTypesList: ArrayList<MealType>) :
     }
 
     override fun onBindViewHolder(holder: MealTypeViewHolder, position: Int) {
+        val constraintNormal = holder.view.row_meal_extended_constraint_normal
+        val constraintDelete = holder.view.row_meal_extended_constraint_delete
+        val constraintEdit = holder.view.row_meal_extended_constraint_edit
+
+        constraintNormal.visibility = View.VISIBLE
+        constraintDelete.visibility = View.GONE
+        constraintEdit.visibility = View.GONE
+
         holder.view.row_meal_extended_name.text = mealTypesList[position].name
         holder.view.row_meal_extended_card.setOnClickListener {
             val fragment = AllMealsCategoryFragment.newInstance(mealTypesList[position].id)
@@ -39,12 +48,12 @@ class MealTypeRecyclerViewAdapter(val mealTypesList: ArrayList<MealType>) :
         }
 
         holder.view.row_meal_extended_delete.setOnClickListener {
-            holder.view.row_meal_extended_constraint_normal.visibility = View.GONE
-            holder.view.row_meal_extended_constraint_delete.visibility = View.VISIBLE
+            constraintNormal.visibility = View.GONE
+            constraintDelete.visibility = View.VISIBLE
         }
         holder.view.row_meal_extended_yes.setOnClickListener {
-            holder.view.row_meal_extended_constraint_normal.visibility = View.VISIBLE
-            holder.view.row_meal_extended_constraint_delete.visibility = View.GONE
+            constraintNormal.visibility = View.VISIBLE
+            constraintDelete.visibility = View.GONE
             val db = DataBaseHelper(holder.view.context)
             val meals = db.getMealList(mealTypesList[position].id)
             for (meal in meals) {
@@ -60,8 +69,29 @@ class MealTypeRecyclerViewAdapter(val mealTypesList: ArrayList<MealType>) :
             notifyItemRangeChanged(position, mealTypesList.size)
         }
         holder.view.row_meal_extended_no.setOnClickListener {
-            holder.view.row_meal_extended_constraint_normal.visibility = View.VISIBLE
-            holder.view.row_meal_extended_constraint_delete.visibility = View.GONE
+            constraintNormal.visibility = View.VISIBLE
+            constraintDelete.visibility = View.GONE
+        }
+        holder.view.row_meal_extended_edit.setOnClickListener {
+            constraintEdit.visibility = View.VISIBLE
+            constraintNormal.visibility = View.GONE
+            holder.view.row_meal_extended_edit_name.setText(
+                holder.view.row_meal_extended_name.text
+            )
+        }
+        holder.view.row_meal_extended_edit_save.setOnClickListener {
+            if (holder.view.row_meal_extended_edit_name.text.toString() != "") {
+                val db = DataBaseHelper(holder.view.context)
+                mealTypesList[holder.adapterPosition].name =
+                    holder.view.row_meal_extended_edit_name.text.toString()
+                db.updateMealType(mealTypesList[holder.adapterPosition])
+                holder.view.row_meal_extended_name.text =
+                    holder.view.row_meal_extended_edit_name.text
+                constraintEdit.visibility = View.GONE
+                constraintNormal.visibility = View.VISIBLE
+            } else {
+                ToastHelper().noNameGiven(holder.view.context)
+            }
         }
     }
 
