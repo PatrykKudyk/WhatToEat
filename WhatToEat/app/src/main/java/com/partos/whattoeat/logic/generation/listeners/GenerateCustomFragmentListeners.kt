@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.partos.whattoeat.MyApp
 import com.partos.whattoeat.R
 import com.partos.whattoeat.db.DataBaseHelper
+import com.partos.whattoeat.fragments.generation.GenerateChooseMealTypeFragment
 import com.partos.whattoeat.fragments.generation.GenerateIngredientsFragment
 import com.partos.whattoeat.logic.ToastHelper
 import com.partos.whattoeat.models.Ingredient
@@ -29,7 +30,16 @@ class GenerateCustomFragmentListeners {
 
     private fun attachListeners(fragmentManager: FragmentManager, context: Context) {
         addButton.setOnClickListener {
-
+            val fragment = GenerateChooseMealTypeFragment.newInstance()
+            fragmentManager
+                .beginTransaction()
+                .setCustomAnimations(
+                    R.anim.enter_right_to_left, R.anim.exit_left_to_right,
+                    R.anim.enter_left_to_right, R.anim.exit_right_to_left
+                )
+                .replace(R.id.main_frame_layout, fragment)
+                .addToBackStack(GenerateChooseMealTypeFragment.toString())
+                .commit()
         }
 
         saveButton.setOnClickListener {
