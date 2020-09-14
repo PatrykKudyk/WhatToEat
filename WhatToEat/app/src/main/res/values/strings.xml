@@ -46,6 +46,8 @@
     <string name="hint_name">Name</string>
     <string name="shopping_list">Shopping list</string>
     <string name="delete_done">Delete done</string>
+    <string name="add_ingredients_to_shopping_list">Add ingredients to shopping list</string>
+    <string name="toast_successfully_added_to_shopping_list">Successfully added to shopping list</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
