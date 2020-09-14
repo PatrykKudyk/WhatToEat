@@ -10,7 +10,8 @@ import com.partos.whattoeat.fragments.generation.GenerateSavedListFragment
 
 class GenerateMenuFragmentListeners {
 
-    private lateinit var generateButton: Button
+    private lateinit var generateRandomButton: Button
+    private lateinit var generateCustomButton: Button
     private lateinit var savedButton: Button
 
     fun initListeners(rootView: View, fragmentManager: FragmentManager) {
@@ -19,7 +20,7 @@ class GenerateMenuFragmentListeners {
     }
 
     private fun attachListeners(fragmentManager: FragmentManager) {
-        generateButton.setOnClickListener {
+        generateRandomButton.setOnClickListener {
             MyApp.allowDuplicates = false
             MyApp.typesList.clear()
             val fragment = GenerateMealsFragment.newInstance()
@@ -32,6 +33,10 @@ class GenerateMenuFragmentListeners {
                 .replace(R.id.main_frame_layout, fragment)
                 .addToBackStack(GenerateMealsFragment.toString())
                 .commit()
+        }
+
+        generateCustomButton.setOnClickListener {
+            
         }
 
         savedButton.setOnClickListener {
@@ -49,7 +54,8 @@ class GenerateMenuFragmentListeners {
     }
 
     private fun attachViews(rootView: View) {
-        generateButton = rootView.findViewById(R.id.generate_menu_generate)
+        generateRandomButton = rootView.findViewById(R.id.generate_menu_generate_random)
+        generateCustomButton = rootView.findViewById(R.id.generate_menu_generate_custom)
         savedButton = rootView.findViewById(R.id.generate_menu_saved)
     }
 }

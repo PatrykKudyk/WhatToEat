@@ -24,7 +24,8 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="toast_cant_delete_ingredient">You can\'t delete all ingredients</string>
-    <string name="generate">Generate new</string>
+    <string name="generate_random">Generate random</string>
+    <string name="generate_custom">Generate custom</string>
     <string name="saved">Saved</string>
     <string name="new_ingredient">New ingredient</string>
     <string name="type">Type</string>

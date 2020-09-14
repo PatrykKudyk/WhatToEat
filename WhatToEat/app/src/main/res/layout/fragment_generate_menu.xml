@@ -32,12 +32,12 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/generate_menu_generate"
+                    android:id="@+id/generate_menu_generate_random"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:background="@drawable/button_background_red"
+                    android:background="@drawable/button_background_red_light"
                     android:fontFamily="@font/dustismo_bold"
-                    android:text="@string/generate"
+                    android:text="@string/generate_random"
                     android:textColor="@color/colorBackground"
                     android:textSize="21dip"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +51,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     app:layout_constraintHeight_percent="0.04"
-                    app:layout_constraintTop_toBottomOf="@id/generate_menu_generate" />
+                    app:layout_constraintTop_toBottomOf="@id/generate_menu_generate_random" />
+
+                <Button
+                    android:id="@+id/generate_menu_generate_custom"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/button_background_red"
+                    android:fontFamily="@font/dustismo_bold"
+                    android:text="@string/generate_custom"
+                    android:textColor="@color/colorBackground"
+                    android:textSize="21dip"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.08"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view2"
+                    app:layout_constraintWidth_percent="0.7" />
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintHeight_percent="0.04"
+                    app:layout_constraintTop_toBottomOf="@id/generate_menu_generate_custom" />
+
 
                 <Button
                     android:id="@+id/generate_menu_saved"
@@ -65,7 +88,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHeight_percent="0.08"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view2"
+                    app:layout_constraintTop_toBottomOf="@id/view3"
                     app:layout_constraintWidth_percent="0.7" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
