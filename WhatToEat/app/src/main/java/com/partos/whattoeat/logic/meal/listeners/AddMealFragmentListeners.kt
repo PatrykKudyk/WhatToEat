@@ -58,7 +58,7 @@ class AddMealFragmentListeners {
         }
         addIngredientButton.setOnClickListener {
             MyApp.ingredientsList.add(Ingredient(0,"", 0.0, "", 0))
-            recyclerView.adapter = IngredientsRecyclerViewAdapter()
+            recyclerView.adapter = IngredientsRecyclerViewAdapter(MyApp.ingredientsList)
         }
     }
 

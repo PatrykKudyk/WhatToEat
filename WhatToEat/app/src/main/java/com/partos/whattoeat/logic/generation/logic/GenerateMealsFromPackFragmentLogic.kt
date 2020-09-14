@@ -3,8 +3,10 @@ package com.partos.whattoeat.logic.generation.logic
 import android.content.Context
 import android.view.View
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.partos.whattoeat.MyApp
 import com.partos.whattoeat.R
 import com.partos.whattoeat.adapters.MarginItemDecoration
 import com.partos.whattoeat.adapters.recycler.MealsStaticRecyclerViewAdapter
@@ -17,11 +19,11 @@ class GenerateMealsFromPackFragmentLogic {
     private lateinit var recyclerView: RecyclerView
     private lateinit var nameText: TextView
 
-    fun initFragment(rootView: View, mealPackId: Long, mealPackName: String) {
+    fun initFragment(rootView: View, mealPackId: Long, mealPackName: String, fragmentManager: FragmentManager) {
         attachViews(rootView)
         nameText.text = mealPackName
         attachRecyclerView(rootView.context, mealPackId)
-        GenerateMealsFromPackFragmentListeners().initListeners(rootView, mealPackId)
+        GenerateMealsFromPackFragmentListeners().initListeners(rootView, mealPackId, fragmentManager)
     }
 
     private fun attachRecyclerView(context: Context, mealPackId: Long) {
@@ -37,8 +39,11 @@ class GenerateMealsFromPackFragmentLogic {
         val meals = db.getMealsFromPackList(mealPackId)
         for (meal in meals) {
             val mealFinal = db.getMeal(meal.mealId)
-            mealList.add(mealFinal[0])
+            if (mealFinal.size != 0) {
+                mealList.add(mealFinal[0])
+            }
         }
+        MyApp.mealList = mealList
         return mealList
     }
 

@@ -8,9 +8,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.partos.whattoeat.MyApp
 import com.partos.whattoeat.R
+import com.partos.whattoeat.models.Ingredient
 import kotlinx.android.synthetic.main.row_ingredient.view.*
 
-class IngredientsRecyclerViewAdapter :
+class IngredientsRecyclerViewAdapter(var ingredientsList: ArrayList<Ingredient>) :
     RecyclerView.Adapter<IngredientsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -19,21 +20,23 @@ class IngredientsRecyclerViewAdapter :
     }
 
     override fun getItemCount(): Int {
-        return MyApp.ingredientsList.size
+        return ingredientsList.size
     }
 
     override fun onBindViewHolder(holder: IngredientsViewHolder, position: Int) {
-        holder.view.row_ingredient_name.setText(MyApp.ingredientsList[position].name)
-        if (MyApp.ingredientsList[position].amount == 0.0) {
+        holder.view.row_ingredient_name.setText(ingredientsList[holder.adapterPosition].name)
+        if (ingredientsList[holder.adapterPosition].amount == 0.0) {
             holder.view.row_ingredient_amount.setText("")
         } else {
-            holder.view.row_ingredient_amount.setText(MyApp.ingredientsList[position].amount.toString())
+            holder.view.row_ingredient_amount.setText(ingredientsList[holder.adapterPosition].amount.toString())
         }
-        holder.view.row_ingredient_type.setText(MyApp.ingredientsList[position].type)
+        holder.view.row_ingredient_type.setText(ingredientsList[holder.adapterPosition].type)
 
         holder.view.row_ingredient_name.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                MyApp.ingredientsList[position].name =
+                ingredientsList[holder.adapterPosition].name =
+                    holder.view.row_ingredient_name.text.toString()
+                MyApp.ingredientsList[holder.adapterPosition].name =
                     holder.view.row_ingredient_name.text.toString()
             }
 
@@ -46,10 +49,14 @@ class IngredientsRecyclerViewAdapter :
         holder.view.row_ingredient_amount.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 if (holder.view.row_ingredient_amount.text.toString() == "") {
-                    MyApp.ingredientsList[position].amount = 0.0
+                    ingredientsList[holder.adapterPosition].amount = 0.0
+                    MyApp.ingredientsList[holder.adapterPosition].amount = 0.0
                 } else {
-                    MyApp.ingredientsList[position].amount =
+                    ingredientsList[holder.adapterPosition].amount =
                         holder.view.row_ingredient_amount.text.toString().toDouble()
+                    MyApp.ingredientsList[holder.adapterPosition].amount =
+                        holder.view.row_ingredient_amount.text.toString().toDouble()
+
                 }
             }
 
@@ -64,7 +71,9 @@ class IngredientsRecyclerViewAdapter :
         })
         holder.view.row_ingredient_type.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                MyApp.ingredientsList[position].type =
+                ingredientsList[holder.adapterPosition].type =
+                    holder.view.row_ingredient_type.text.toString()
+                MyApp.ingredientsList[holder.adapterPosition].type =
                     holder.view.row_ingredient_type.text.toString()
             }
 
@@ -78,9 +87,9 @@ class IngredientsRecyclerViewAdapter :
 
         })
         holder.view.row_ingredient_delete.setOnClickListener {
-            MyApp.ingredientsList.removeAt(position)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, MyApp.ingredientsList.size)
+            MyApp.ingredientsList.removeAt(holder.adapterPosition)
+            notifyItemRemoved(holder.adapterPosition)
+            notifyItemRangeChanged(holder.adapterPosition, ingredientsList.size)
         }
     }
 

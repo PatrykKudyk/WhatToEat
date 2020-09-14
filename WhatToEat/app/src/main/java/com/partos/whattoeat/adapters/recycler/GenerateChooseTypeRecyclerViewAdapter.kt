@@ -23,7 +23,6 @@ class GenerateChooseTypeRecyclerViewAdapter(val mealTypes: ArrayList<MealType>) 
         val inflater = LayoutInflater.from(parent.context)
         val cell = inflater.inflate(R.layout.row_meal, parent, false)
         return GenerateChooseTypeViewHolder(cell)
-
     }
 
     override fun getItemCount(): Int {

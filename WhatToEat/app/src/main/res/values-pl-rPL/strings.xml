@@ -25,7 +25,8 @@
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
     <string name="toast_cant_delete_ingredient">Nie możesz usunąć wszystkich składników</string>
-    <string name="generate">Wygeneruj nowe</string>
+    <string name="generate_random">Wygeneruj losowe</string>
+    <string name="generate_custom">Wygeneruj wybrane</string>
     <string name="saved">Zapisane</string>
     <string name="new_ingredient">Nowy składnik</string>
     <string name="type">Typ</string>
@@ -37,9 +38,16 @@
     <string name="toast_meal_type_number_incorrect1">Ilość podana w</string>
     <string name="toast_meal_type_number_incorrect2">jest niepoprawna</string>
     <string name="toast_no_meal_types">Nie podano żadnych typów posiłków</string>
+    <string name="toast_no_meals">Nie podano żadnych posiłków</string>
     <string name="save_meals">Zapisz paczkę posiłków</string>
     <string name="get_ingredients_list">Zobacz listę składników</string>
     <string name="toast_successfully_saved">Pomyślnie zapisano</string>
     <string name="hint_meal_pack_name">Nazwa paczki</string>
+    <string name="delete_question">Jesteś pewny?</string>
+    <string name="hint_name">Nazwa</string>
+    <string name="shopping_list">Lista zakupów</string>
+    <string name="delete_done">Usuń zrobione</string>
+    <string name="add_ingredients_to_shopping_list">Dodaj składniki do listy zakupów</string>
+    <string name="toast_successfully_added_to_shopping_list">Pomyślnie dodano do listy zakupów</string>
 
 </resources>
