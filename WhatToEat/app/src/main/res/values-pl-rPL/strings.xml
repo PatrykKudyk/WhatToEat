@@ -45,5 +45,9 @@
     <string name="hint_meal_pack_name">Nazwa paczki</string>
     <string name="delete_question">Jesteś pewny?</string>
     <string name="hint_name">Nazwa</string>
+    <string name="shopping_list">Lista zakupów</string>
+    <string name="delete_done">Usuń zrobione</string>
+    <string name="add_ingredients_to_shopping_list">Dodaj składniki do listy zakupów</string>
+    <string name="toast_successfully_added_to_shopping_list">Pomyślnie dodano do listy zakupów</string>
 
 </resources>

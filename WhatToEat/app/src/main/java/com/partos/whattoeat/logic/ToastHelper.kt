@@ -74,4 +74,12 @@ class ToastHelper {
             Toast.LENGTH_SHORT
         ).show()
     }
+
+    fun successfullyAddedToShoppingList(context: Context) {
+        Toast.makeText(
+            context,
+            context.getText(R.string.toast_successfully_added_to_shopping_list),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 }

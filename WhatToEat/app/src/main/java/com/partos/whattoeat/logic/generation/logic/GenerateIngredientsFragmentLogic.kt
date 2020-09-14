@@ -8,6 +8,7 @@ import com.partos.whattoeat.MyApp
 import com.partos.whattoeat.R
 import com.partos.whattoeat.adapters.MarginItemDecoration
 import com.partos.whattoeat.adapters.recycler.IngredientsMapRecyclerViewAdapter
+import com.partos.whattoeat.logic.generation.listeners.GenerateIngredientsFragmentListeners
 import com.partos.whattoeat.models.Amount
 import com.partos.whattoeat.models.IngredientExtended
 
@@ -18,6 +19,10 @@ class GenerateIngredientsFragmentLogic {
     fun initFragment(rootView: View) {
         attachViews(rootView)
         attachRecyclerView(rootView.context)
+        GenerateIngredientsFragmentListeners().initFragment(
+            rootView,
+            generateIngredientsExtended(MyApp.ingredientsMap)
+        )
     }
 
     private fun attachRecyclerView(context: Context) {
