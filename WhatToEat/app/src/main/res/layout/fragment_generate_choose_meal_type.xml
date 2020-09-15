@@ -24,9 +24,47 @@
                 android:layout_height="match_parent"
                 android:background="@color/colorBackground">
 
+
+                <TextView
+                    android:id="@+id/generate_choose_meal_type_none_1"
+                    tools:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:gravity="center"
+                    android:layout_marginBottom="72dp"
+                    android:fontFamily="@font/dustismo_bold"
+                    android:text="@string/no_meal_types"
+                    android:textSize="35dip"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/generate_choose_meal_type_none_2"
+                    tools:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/dustismo"
+                    android:text="@string/try_to_add_meal_types"
+                    android:textSize="24dip"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/generate_choose_meal_type_none_1"/>
+
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/generate_choose_meal_type_recycler_view"
                     android:layout_width="match_parent"
+                    android:visibility="gone"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
