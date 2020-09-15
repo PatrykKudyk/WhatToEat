@@ -46,8 +46,11 @@
     <string name="delete_question">Jesteś pewny?</string>
     <string name="hint_name">Nazwa</string>
     <string name="shopping_list">Lista zakupów</string>
-    <string name="delete_done">Usuń zrobione</string>
+    <string name="delete_done">Usuń zaznaczone</string>
     <string name="add_ingredients_to_shopping_list">Dodaj składniki do listy zakupów</string>
     <string name="toast_successfully_added_to_shopping_list">Pomyślnie dodano do listy zakupów</string>
+    <string name="no_meal_types">Na razie nie ma żadnych typów posiłków</string>
+    <string name="try_to_add_meal_types">Spróbuj dodać je w sekcji posiłków</string>
+    <string name="no_meals">Na razie nie ma żadnych posiłków</string>
 
 </resources>
